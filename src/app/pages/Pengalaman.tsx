@@ -3,65 +3,61 @@ import { C, containerVariants, itemVariants } from "../components/constants";
 
 const experiences = [
   {
-    year: "2022 — Sekarang",
-    role: "Creative Director & Head of Design",
-    company: "PixelForge Studio",
-    location: "Jakarta, Indonesia",
-    type: "Full-time",
+    year: "2025 — Sekarang",
+    role: "HMI, Apps & Website Developer",
+    company: "PT. Reinutech Perbeja",
+    location: "Semarang, Indonesia",
+    type: "Intern",
     color: C.green,
-    desc: "Memimpin tim desain 12 orang dalam merancang produk digital untuk klien Fortune 500. Mengembangkan design system yang digunakan oleh 40+ produk internal dan eksternal.",
-    achievements: ["Meningkatkan retensi pengguna 37%", "Memimpin redesign platform B2B (+120% konversi)", "Membangun design ops dari nol"],
-    tags: ["Leadership", "Design System", "Product Strategy"],
+    desc: "Mengembangkan solusi IoT terintegrasi untuk smart farming: HMI berbasis Nextion untuk sistem kontrol iklim, aplikasi mobile Flutter untuk monitoring, dan platform web untuk peternakan ayam closed-house.",
+    achievements: ["HMI Nextion untuk Climate Control System", "Aplikasi Flutter sistem monitoring & pelaporan", "Platform web monitoring kandang ayam tertutup"],
+    tags: ["IoT", "HMI", "Flutter", "Web Dev"],
   },
   {
-    year: "2020 — 2022",
-    role: "Senior Product Designer",
-    company: "GoTech Solutions",
-    location: "Jakarta, Indonesia",
-    type: "Full-time",
+    year: "2022",
+    role: "Mekanik Alat Berat",
+    company: "PT. BUMA",
+    location: "Indonesia",
+    type: "Intern",
     color: C.blue,
-    desc: "Bertanggung jawab atas pengalaman pengguna dari 3 produk utama dengan 500K+ pengguna aktif. Berkolaborasi langsung dengan tim Engineering dan Product Management.",
-    achievements: ["NPS score naik dari 42 ke 71", "Redesign onboarding (churn -28%)", "Mentoring 4 junior designer"],
-    tags: ["UX Research", "Prototyping", "Agile"],
+    desc: "Bertanggung jawab atas inspeksi PPA, PPU, dan peralatan umum, perawatan unit Excavator, serta menyelesaikan Basic Mechanic Course (Power train, engine, electrical, pneumatic hydraulic, FOWAG).",
+    achievements: ["Inspeksi PPA, PPU, dan peralatan umum", "Maintenance unit Excavator", "Lulus Basic Mechanic Course"],
+    tags: ["Heavy Equipment", "Mechanical", "Electrical"],
   },
   {
-    year: "2018 — 2020",
-    role: "UI/UX Designer",
-    company: "Kreativa Digital Agency",
-    location: "Bandung, Indonesia",
-    type: "Full-time",
+    year: "2022",
+    role: "Engineering",
+    company: "Hotel MG Suite",
+    location: "Semarang, Indonesia",
+    type: "Intern",
     color: C.mantis,
-    desc: "Mengerjakan proyek desain untuk lebih dari 30 klien dari berbagai industri mulai dari fintech, e-commerce, hingga healthtech.",
-    achievements: ["30+ proyek selesai tepat waktu", "Penghargaan Best Design Agency 2019", "Spesialisasi mobile-first design"],
-    tags: ["Mobile Design", "Branding", "Wireframing"],
-  },
-  {
-    year: "2016 — 2018",
-    role: "Junior Visual Designer",
-    company: "Ideation Lab",
-    location: "Yogyakarta, Indonesia",
-    type: "Full-time",
-    color: C.mantisDeep,
-    desc: "Memulai karir di agensi kreatif kecil yang fokus pada identitas merek dan desain komunikasi visual. Tempat pertama belajar tentang proses kreatif secara profesional.",
-    achievements: ["Menguasai Adobe Creative Suite", "Desain 50+ aset brand", "Belajar user-centered design"],
-    tags: ["Visual Design", "Branding", "Print Design"],
+    desc: "Melaksanakan inspeksi properti harian, mengelola operasional fasilitas hotel, dan memperbaiki fasilitas yang rusak termasuk unit AC dan infrastruktur bangunan.",
+    achievements: ["Pengecekan harian seluruh fasilitas", "Perawatan preventif & korektif", "Perbaikan unit AC & fasilitas hotel"],
+    tags: ["Facility Maintenance", "Electrical", "HVAC"],
   },
 ];
 
 const education = [
   {
-    year: "2012 — 2016",
-    degree: "S1 Desain Komunikasi Visual",
-    school: "Institut Teknologi Bandung",
-    gpa: "3.87 / 4.00",
-    honors: "Cum Laude",
+    year: "2023 — Exp. 2027",
+    degree: "D4 Teknik Otomasi",
+    school: "Universitas Diponegoro",
+    gpa: "Aktif",
+    honors: "Beasiswa KSE",
   },
   {
-    year: "2023",
-    degree: "Google UX Design Certificate",
-    school: "Coursera / Google",
+    year: "2023 — Sekarang",
+    degree: "Kitab (Pesantren)",
+    school: "Ponpes Kyai Galang Sewu",
     gpa: "—",
-    honors: "Distinction",
+    honors: "Aktif",
+  },
+  {
+    year: "2020 — 2023",
+    degree: "Instalasi Tenaga Listrik",
+    school: "SMKN Jateng di Semarang",
+    gpa: "Terbaik",
+    honors: "Best Graduate",
   },
 ];
 
@@ -224,10 +220,10 @@ export default function Pengalaman() {
             </p>
             <div className="grid grid-cols-2 gap-3">
               {[
-                { num: "7+", label: "Tahun Pengalaman" },
-                { num: "50+", label: "Proyek Selesai" },
-                { num: "30+", label: "Klien Puas" },
-                { num: "12", label: "Anggota Tim" },
+                { num: "3+", label: "Pengalaman Magang" },
+                { num: "20+", label: "Proyek Selesai" },
+                { num: "7", label: "Penghargaan" },
+                { num: "5+", label: "Organisasi" },
               ].map((stat, i) => (
                 <motion.div
                   key={stat.label}
@@ -292,7 +288,7 @@ export default function Pengalaman() {
             <p className="uppercase mb-3" style={{ color: "rgba(246,247,237,0.5)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.12em" }}>
               SERTIFIKASI
             </p>
-            {["Google UX Design", "AWS Cloud Practitioner", "Figma Professional", "HubSpot Content"].map((cert, i) => (
+            {["Kompetensi Keahlian - ESDM", "BIRU x KSE Scholarship Awardee", "Hak Kekayaan Intelektual (HKI)", "Basic Mechanic Course - PT. BUMA"].map((cert, i) => (
               <motion.div
                 key={cert}
                 className="flex items-center gap-2.5 py-2"

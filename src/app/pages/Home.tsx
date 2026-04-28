@@ -4,26 +4,26 @@ import { C, containerVariants, itemVariants } from "../components/constants";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 
 const PROFILE_IMG =
-  "https://images.unsplash.com/photo-1758876204244-930299843f07?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx5b3VuZyUyMHByb2Zlc3Npb25hbCUyMHNtaWxpbmclMjBtb2Rlcm4lMjBvZmZpY2V8ZW58MXx8fHwxNzc3Mjg3MjQwfDA&ixlib=rb-4.1.0&q=80&w=1080";
+  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx5b3VuZyUyMG1hbiUyMHByb2Zlc3Npb25hbCUyMHBvcnRyYWl0fGVufDF8fHx8MTc3NzI4NzI0MHww&ixlib=rb-4.1.0&q=80&w=1080";
 
 const skills = [
-  { name: "UI/UX Design", level: 92 },
-  { name: "Strategi Produk", level: 88 },
-  { name: "Brand Identity", level: 85 },
-  { name: "React / Next.js", level: 80 },
+  { name: "IoT & Embedded Systems", level: 88 },
+  { name: "HMI Development (Nextion)", level: 85 },
+  { name: "Web & App Development", level: 82 },
+  { name: "PLC & Control Systems", level: 80 },
 ];
 
 const testimonials = [
-  { text: "Desain yang dihasilkan melampaui ekspektasi kami.", name: "Andi Pratama", role: "CEO, Startup Alpha", avatar: "A" },
-  { text: "Sangat profesional dan memahami kebutuhan bisnis.", name: "Sari Dewi", role: "CMO, TechVision", avatar: "S" },
+  { text: "Sangat inovatif dalam mengintegrasikan IoT untuk sistem monitoring pertanian kami.", name: "PT. Reinutech Perbeja", role: "Supervisor Proyek", avatar: "R" },
+  { text: "Profesional dan berdedikasi tinggi dalam setiap tugas yang diberikan.", name: "URDC Undip", role: "Koordinator Aterkia", avatar: "U" },
 ];
 
 const socialLinks = [
   { icon: "in", label: "LinkedIn" },
   { icon: "gh", label: "GitHub" },
-  { icon: "be", label: "Behance" },
-  { icon: "dr", label: "Dribbble" },
-  { icon: "tw", label: "Twitter" },
+  { icon: "ig", label: "Instagram" },
+  { icon: "yt", label: "YouTube" },
+  { icon: "em", label: "Email" },
 ];
 
 export default function Home() {
@@ -90,11 +90,11 @@ export default function Home() {
               transition={{ duration: 2, repeat: Infinity }}
             />
             <span className="text-xs tracking-wider" style={{ color: C.white, opacity: 0.85, fontSize: "10px" }}>
-              TERSEDIA UNTUK PROYEK BARU
+              OPEN TO WORK & COLLABORATION
             </span>
           </motion.div>
           <div className="flex items-center gap-2">
-            {["React", "Figma", "Strategy"].map((tag, i) => (
+            {["IoT", "HMI", "Web Dev"].map((tag, i) => (
               <motion.span
                 key={tag}
                 className="text-xs px-2.5 py-1 rounded-full"
@@ -131,14 +131,14 @@ export default function Home() {
               lineHeight: 1.02,
             }}
           >
-            CRAFTING
+            M. YUSUF
             <br />
             <motion.span
               style={{ color: C.lime, display: "inline-block" }}
               animate={{ textShadow: [`0 0 20px rgba(219,230,76,0)`, `0 0 30px rgba(219,230,76,0.4)`, `0 0 20px rgba(219,230,76,0)`] }}
               transition={{ duration: 3, repeat: Infinity }}
             >
-              VISIONER:
+              RIYADI
             </motion.span>
           </h1>
           <h1
@@ -152,7 +152,7 @@ export default function Home() {
               opacity: 0.88,
             }}
           >
-            STRATEGI & DESAIN
+            IoT · HMI · WEB DEVELOPER
           </h1>
         </motion.div>
 
@@ -165,9 +165,9 @@ export default function Home() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
           >
-            Kumpulan proyek produk, desain, dan strategi inovatif.
+            Mahasiswa Teknik Otomasi Universitas Diponegoro.
             <br />
-            Navigasi tanpa scroll, temukan dampak saya sekarang.
+            Passionate di IoT, sistem kontrol, HMI & pengembangan web.
           </motion.p>
           <motion.div
             className="flex gap-6"
@@ -175,7 +175,7 @@ export default function Home() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.45, duration: 0.5 }}
           >
-            {[{ num: "50+", label: "Proyek" }, { num: "30+", label: "Klien" }, { num: "5★", label: "Rating" }].map((stat) => (
+            {[{ num: "20+", label: "Proyek" }, { num: "7+", label: "Penghargaan" }, { num: "3+", label: "Magang" }].map((stat) => (
               <div key={stat.label} className="text-right">
                 <p style={{ color: C.lime, fontWeight: 900, fontSize: "clamp(20px, 2.2vw, 30px)", lineHeight: 1 }}>
                   {stat.num}
@@ -212,12 +212,12 @@ export default function Home() {
             style={{ backgroundColor: "rgba(0,31,63,0.6)", backdropFilter: "blur(10px)", border: "1px solid rgba(246,247,237,0.1)" }}
           >
             <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: C.lime }} />
-            <span style={{ color: C.white, fontSize: "9px", opacity: 0.85 }}>Creative Director</span>
+            <span style={{ color: C.white, fontSize: "9px", opacity: 0.85 }}>IoT & HMI Developer</span>
           </div>
           <p className="uppercase" style={{ color: C.white, fontWeight: 800, fontSize: "14px", letterSpacing: "0.05em" }}>
-            ALEX WIRAWAN
+            M. YUSUF RIYADI
           </p>
-          <p style={{ color: "rgba(246,247,237,0.5)", fontSize: "9px" }}>Jakarta, Indonesia 🇮🇩</p>
+          <p style={{ color: "rgba(246,247,237,0.5)", fontSize: "9px" }}>Semarang, Jawa Tengah 🇮🇩</p>
         </div>
       </motion.div>
 
@@ -393,9 +393,9 @@ export default function Home() {
       >
         <div className="flex items-center gap-2">
           <div className="w-5 h-5 rounded-md flex items-center justify-center" style={{ backgroundColor: C.lime }}>
-            <span style={{ color: C.midnight, fontSize: "7px", fontWeight: 900 }}>PM</span>
+            <span style={{ color: C.midnight, fontSize: "7px", fontWeight: 900 }}>YR</span>
           </div>
-          <p style={{ color: "rgba(246,247,237,0.4)", fontSize: "9px" }}>© 2024 Alex Wirawan. All rights reserved.</p>
+          <p style={{ color: "rgba(246,247,237,0.4)", fontSize: "9px" }}>© 2026 M. Yusuf Riyadi. All rights reserved.</p>
         </div>
         <div className="flex items-center gap-2">
           {socialLinks.map((s) => (
@@ -412,7 +412,7 @@ export default function Home() {
           ))}
         </div>
         <div className="flex items-center gap-3">
-          <span style={{ color: "rgba(246,247,237,0.3)", fontSize: "9px" }}>Dibuat dengan ❤️ di Jakarta</span>
+          <span style={{ color: "rgba(246,247,237,0.3)", fontSize: "9px" }}>Dibuat dengan ❤️ di Semarang</span>
           <div
             className="flex items-center gap-1 px-2 py-1 rounded-full"
             style={{ backgroundColor: "rgba(219,230,76,0.1)", border: "1px solid rgba(219,230,76,0.2)" }}

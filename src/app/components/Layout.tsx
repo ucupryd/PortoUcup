@@ -25,7 +25,7 @@ export function Layout() {
 
       {/* Page content area */}
       <div className="flex-1 relative overflow-hidden h-full">
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="sync">
           <motion.div
             key={location.pathname}
             className="absolute inset-0 overflow-y-auto"

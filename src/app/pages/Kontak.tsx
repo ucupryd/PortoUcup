@@ -3,22 +3,22 @@ import { motion, AnimatePresence } from "motion/react";
 import { C, containerVariants, itemVariants } from "../components/constants";
 
 const contactInfo = [
-  { icon: "✉️", label: "Email", value: "alex@wirawan.design", link: "mailto:alex@wirawan.design" },
-  { icon: "📱", label: "WhatsApp", value: "+62 812-3456-7890", link: "https://wa.me/6281234567890" },
-  { icon: "🌐", label: "Website", value: "wirawan.design", link: "#" },
-  { icon: "📍", label: "Lokasi", value: "Jakarta Selatan, Indonesia", link: "#" },
+  { icon: "✉️", label: "Email", value: "yusufriyadi141004@gmail.com", link: "mailto:yusufriyadi141004@gmail.com" },
+  { icon: "📱", label: "WhatsApp", value: "+62 895-4228-85344", link: "https://wa.me/6289542288534" },
+  { icon: "🌐", label: "Email Undip", value: "myusufriyadi@students.undip.ac.id", link: "mailto:myusufriyadi@students.undip.ac.id" },
+  { icon: "📍", label: "Lokasi", value: "Semarang, Jawa Tengah", link: "#" },
 ];
 
 const socialLinks = [
-  { icon: "in", label: "LinkedIn", color: "#0A66C2", handle: "@alexwirawan" },
-  { icon: "gh", label: "GitHub", color: "#fff", handle: "@wirawan-dev" },
-  { icon: "be", label: "Behance", color: "#1769FF", handle: "@alexwirawan" },
-  { icon: "dr", label: "Dribbble", color: "#EA4C89", handle: "@wirawan" },
+  { icon: "in", label: "LinkedIn", color: "#0A66C2", handle: "@myusufriyadi" },
+  { icon: "gh", label: "GitHub", color: "#fff", handle: "@yusuf-riyadi" },
+  { icon: "ig", label: "Instagram", color: "#E1306C", handle: "@yusufriyadi_" },
+  { icon: "yt", label: "YouTube", color: "#FF0000", handle: "@yusufriyadi" },
 ];
 
 const availability = [
-  { day: "Senin – Jumat", time: "09.00 – 18.00 WIB", available: true },
-  { day: "Sabtu", time: "10.00 – 14.00 WIB", available: true },
+  { day: "Senin – Jumat", time: "08.00 – 17.00 WIB", available: true },
+  { day: "Sabtu", time: "09.00 – 13.00 WIB", available: true },
   { day: "Minggu", time: "Tidak tersedia", available: false },
 ];
 
@@ -107,12 +107,12 @@ export default function Kontak() {
               </span>
             </div>
             <p style={{ color: C.white, fontWeight: 900, fontSize: "17px", lineHeight: 1.3 }}>
-              Punya ide briliant?
+              Ada proyek IoT atau otomasi?
               <br />
-              <span style={{ opacity: 0.7 }}>Mari wujudkan bersama! 🚀</span>
+              <span style={{ opacity: 0.7 }}>Mari berkolaborasi! 🚀</span>
             </p>
             <p className="mt-3" style={{ color: "rgba(246,247,237,0.6)", fontSize: "11px", lineHeight: 1.6 }}>
-              Saya terbuka untuk proyek freelance, kolaborasi strategis, atau diskusi santai tentang desain.
+              Terbuka untuk proyek IoT, sistem kontrol, HMI, web development, freelance, atau diskusi teknis bersama.
             </p>
           </motion.div>
 

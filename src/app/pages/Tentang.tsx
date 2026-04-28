@@ -6,24 +6,25 @@ const PROFILE_IMG =
   "https://images.unsplash.com/photo-1758876204244-930299843f07?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx5b3VuZyUyMHByb2Zlc3Npb25hbCUyMHNtaWxpbmclMjBtb2Rlcm4lMjBvZmZpY2V8ZW58MXx8fHwxNzc3Mjg3MjQwfDA&ixlib=rb-4.1.0&q=80&w=1080";
 
 const values = [
-  { icon: "🎯", title: "Presisi", desc: "Setiap piksel dan keputusan strategis dibuat dengan ketelitian tinggi." },
-  { icon: "🚀", title: "Inovasi", desc: "Selalu mengeksplorasi solusi baru di luar kebiasaan industri." },
-  { icon: "🤝", title: "Kolaborasi", desc: "Percaya bahwa hasil terbaik lahir dari sinergi tim yang solid." },
-  { icon: "📈", title: "Dampak", desc: "Fokus pada hasil terukur, bukan sekadar estetika semata." },
+  { icon: "⚡", title: "Inovasi", desc: "Selalu mengeksplorasi solusi baru di bidang IoT, otomasi, dan teknologi kontrol." },
+  { icon: "🎯", title: "Presisi", desc: "Setiap sistem dan kode dibuat dengan ketelitian tinggi dan standar teknis." },
+  { icon: "🤝", title: "Kolaborasi", desc: "Aktif di tim robotika, organisasi, dan proyek lintas disiplin." },
+  { icon: "📈", title: "Dampak", desc: "Fokus pada solusi nyata yang memberi manfaat dan kemudahan bagi pengguna." },
 ];
 
 const tools = [
-  "Figma", "React", "Next.js", "Tailwind", "Framer", "Notion",
-  "Adobe XD", "Webflow", "TypeScript", "Supabase",
+  "Arduino IDE", "CubeMX", "CubeIDE", "LabView", "Nextion", "EasyBuilderPro",
+  "Flutter", "React", "Proteus", "EasyEDA", "Fritzing", "Solidworks",
+  "VSCode", "Fluidsim", "PSIM", "ThinkerCad", "Drawlo",
 ];
 
 const skills = [
-  { name: "UI/UX Design", level: 92 },
-  { name: "Strategi Produk", level: 88 },
-  { name: "Brand Identity", level: 85 },
-  { name: "Frontend Dev", level: 80 },
-  { name: "User Research", level: 78 },
-  { name: "Motion Design", level: 74 },
+  { name: "IoT & Embedded Systems", level: 88 },
+  { name: "HMI Development (Nextion)", level: 85 },
+  { name: "Web & App Development", level: 82 },
+  { name: "PLC & Control Systems", level: 80 },
+  { name: "PCB Design (EasyEDA)", level: 78 },
+  { name: "Flutter Mobile Dev", level: 75 },
 ];
 
 export default function Tentang() {
@@ -95,10 +96,10 @@ export default function Tentang() {
                 transition={{ duration: 4, repeat: Infinity }}
               >
                 <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: C.lime }} />
-                <span style={{ color: C.lime, fontSize: "9px", fontWeight: 600 }}>Creative Director & Strategist</span>
+                <span style={{ color: C.lime, fontSize: "9px", fontWeight: 600 }}>IoT & HMI Developer · Teknik Otomasi</span>
               </motion.div>
               <p className="uppercase" style={{ color: C.white, fontWeight: 900, fontSize: "18px", letterSpacing: "0.04em" }}>
-                ALEX WIRAWAN
+                M. YUSUF RIYADI
               </p>
             </div>
           </motion.div>
@@ -155,18 +156,18 @@ export default function Tentang() {
               TENTANG SAYA
             </p>
             <p style={{ color: C.white, fontSize: "13px", lineHeight: 1.75, opacity: 0.9 }}>
-              Hai! Saya <strong style={{ color: C.lime }}>Alex Wirawan</strong>, seorang Creative Director dan Product Strategist
-              berbasis di Jakarta dengan <strong style={{ color: C.white }}>7+ tahun pengalaman</strong> merancang produk
-              digital yang berdampak.
+              Hai! Saya <strong style={{ color: C.lime }}>M. Yusuf Riyadi</strong>, mahasiswa aktif <strong style={{ color: C.white }}>Teknik Otomasi Undip</strong> dan
+              penerima beasiswa Karya Salemba Empat. Lulusan terbaik SMK Negeri Jawa Tengah
+              jurusan Instalasi Tenaga Listrik.
             </p>
             <p className="mt-3" style={{ color: C.white, fontSize: "13px", lineHeight: 1.75, opacity: 0.75 }}>
-              Saya percaya bahwa desain terbaik bukan hanya indah, tapi juga <em>bekerja</em>. Pendekatan saya
-              menggabungkan riset mendalam, pemikiran strategis, dan eksekusi desain yang teliti untuk menciptakan
-              pengalaman yang benar-benar bermakna bagi pengguna.
+              Pengalaman praktis dari magang sebagai mekanik alat berat di PT. BUMA,
+              engineer di Hotel MG Setos, dan HMI & Web Developer di PT. Perbeja Reinutech.
+              Kini aktif sebagai Electrical Expert Staff di tim Aterkia URDC Undip.
             </p>
             <p className="mt-3" style={{ color: C.white, fontSize: "13px", lineHeight: 1.75, opacity: 0.6 }}>
-              Ketika tidak sedang mendesain, saya menulis tentang design system, berbicara di konferensi teknologi,
-              dan menikmati secangkir kopi sambil membaca tentang psikologi perilaku.
+              Passion saya di sistem kontrol, IoT, embedded systems, dan pengembangan web
+              untuk menciptakan solusi teknologi yang nyata dan berdampak.
             </p>
           </motion.div>
 

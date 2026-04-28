@@ -1,11 +1,9 @@
-import { useState } from "react";
 import { NavLink, useNavigate } from "react-router";
 import { motion } from "motion/react";
 import { C, navItems } from "./constants";
 
 export function NavPanel() {
   const navigate = useNavigate();
-  const [hoveredNav, setHoveredNav] = useState<string | null>(null);
 
   return (
     <motion.div
@@ -18,7 +16,7 @@ export function NavPanel() {
       }}
       initial={{ x: -60, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+      transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as const }}
     >
       {/* Glow accent */}
       <motion.div
@@ -47,7 +45,7 @@ export function NavPanel() {
           whileHover={{ scale: 1.08, rotate: 3 }}
           whileTap={{ scale: 0.95 }}
         >
-          <span className="text-xs" style={{ color: C.midnight, fontWeight: 900 }}>PM</span>
+          <span className="text-xs" style={{ color: C.midnight, fontWeight: 900 }}>YR</span>
         </motion.div>
         <p className="text-xs tracking-widest uppercase" style={{ color: C.lime, opacity: 0.85, fontSize: "9px" }}>
           PORTOFOLIO
@@ -66,29 +64,24 @@ export function NavPanel() {
           <NavLink key={item.label} to={item.path}>
             {({ isActive }) => (
               <motion.div
-                onMouseEnter={() => setHoveredNav(item.label)}
-                onMouseLeave={() => setHoveredNav(null)}
                 className="w-full text-left rounded-xl px-3 py-2.5 flex items-center gap-2.5 cursor-pointer relative overflow-hidden"
                 style={{
-                  backgroundColor: isActive
-                    ? "rgba(219,230,76,0.12)"
-                    : hoveredNav === item.label
-                    ? "rgba(246,247,237,0.04)"
-                    : "transparent",
+                  backgroundColor: isActive ? "rgba(219,230,76,0.12)" : "transparent",
                   border: isActive ? `1px solid rgba(219,230,76,0.2)` : "1px solid transparent",
-                  transition: "background-color 0.2s, border-color 0.2s",
                 }}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.15 + i * 0.07, duration: 0.4 }}
-                whileHover={{ x: 2 }}
+                whileHover={
+                  isActive
+                    ? {}
+                    : { backgroundColor: "rgba(246,247,237,0.05)" }
+                }
               >
                 {isActive && (
-                  <motion.div
+                  <div
                     className="absolute inset-0 rounded-xl"
                     style={{ background: `linear-gradient(135deg, rgba(219,230,76,0.06), transparent)` }}
-                    layoutId="nav-active-bg"
-                    transition={{ duration: 0.3 }}
                   />
                 )}
                 <span
@@ -104,7 +97,7 @@ export function NavPanel() {
                 <div className="relative z-10">
                   <p
                     style={{
-                      color: isActive ? C.lime : hoveredNav === item.label ? C.white : "rgba(246,247,237,0.6)",
+                      color: isActive ? C.lime : "rgba(246,247,237,0.6)",
                       fontWeight: isActive ? 700 : 500,
                       fontSize: "10px",
                       letterSpacing: "0.08em",
@@ -116,11 +109,9 @@ export function NavPanel() {
                   <p style={{ color: "rgba(246,247,237,0.3)", fontSize: "8px" }}>{item.sub}</p>
                 </div>
                 {isActive && (
-                  <motion.div
+                  <div
                     className="ml-auto w-1 h-4 rounded-full"
                     style={{ backgroundColor: C.lime }}
-                    layoutId="nav-indicator"
-                    transition={{ duration: 0.3 }}
                   />
                 )}
               </motion.div>
