@@ -4,6 +4,8 @@ import { C, containerVariants, itemVariants } from "../components/constants";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 
 import PROFILE_IMG from "../assets/profil.jpeg";
+// Background video for hero (place `home.mp4` in src/app/assets/)
+import BG_VIDEO from "../assets/home.mp4";
 const skills = [
   { name: "IoT & Embedded Systems", level: 88 },
   { name: "HMI Development (Nextion)", level: 85 },
@@ -52,7 +54,7 @@ export default function Home() {
       {/* ─── HERO PANEL ─── */}
       <motion.div
         className="rounded-2xl p-8 flex flex-col justify-between relative overflow-hidden"
-        style={{ gridArea: "hero", backgroundColor: C.green, boxShadow: `0 8px 40px rgba(0,128,76,0.3)` }}
+        style={{ gridArea: "hero", backgroundColor: "transparent", boxShadow: `0 8px 40px rgba(0,0,0,0.18)` }}
         variants={bentoItem}
         initial="initial"
         animate="animate"
@@ -64,6 +66,20 @@ export default function Home() {
           style={{ background: C.lime, filter: "blur(70px)", transform: "translate(20%, -20%)", opacity: 0.1 }}
           animate={{ scale: [1, 1.2, 1], opacity: [0.08, 0.14, 0.08] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
+        {/* Background video (looping, muted) */}
+        <video
+          key="hero-bg-video"
+          src={BG_VIDEO}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-hidden
+          tabIndex={-1}
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+          style={{ zIndex: 0, opacity: 0.99, filter: "brightness(0.55) contrast(1.02)", willChange: "opacity" }}
         />
         <motion.div
           className="absolute bottom-0 left-1/3 w-48 h-48 rounded-full pointer-events-none"
