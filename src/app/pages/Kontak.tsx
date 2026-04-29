@@ -1,20 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { C, containerVariants, itemVariants } from "../components/constants";
-
-const contactInfo = [
-  { icon: "✉️", label: "Email", value: "yusufriyadi141004@gmail.com", link: "mailto:yusufriyadi141004@gmail.com" },
-  { icon: "📱", label: "WhatsApp", value: "+62 895-4228-85344", link: "https://wa.me/6289542288534" },
-  { icon: "🌐", label: "Email Undip", value: "myusufriyadi@students.undip.ac.id", link: "mailto:myusufriyadi@students.undip.ac.id" },
-  { icon: "📍", label: "Lokasi", value: "Semarang, Jawa Tengah", link: "#" },
-];
-
-const socialLinks = [
-  { icon: "in", label: "LinkedIn", color: "#0A66C2", handle: "@myusufriyadi" },
-  { icon: "gh", label: "GitHub", color: "#fff", handle: "@yusuf-riyadi" },
-  { icon: "ig", label: "Instagram", color: "#E1306C", handle: "@yusufriyadi_" },
-  { icon: "yt", label: "YouTube", color: "#FF0000", handle: "@yusufriyadi" },
-];
+import { Instagram, Linkedin, Github, Youtube, Phone, Mail, MapPin, GraduationCap } from "lucide-react";
 
 const availability = [
   { day: "Senin – Jumat", time: "08.00 – 17.00 WIB", available: true },
@@ -23,6 +10,94 @@ const availability = [
 ];
 
 type FormStatus = "idle" | "sending" | "success" | "error";
+
+// ── LinksCard component (referensi UI card dengan efek hover fan) ──
+const LinksCard = ({ id, title, bgGradient, items }: {
+  id: string;
+  title: string;
+  bgGradient: string;
+  items: { link: string; icon: React.ReactNode; hoverBg: string }[];
+}) => (
+  <div className={`lc-wrap lc-${id}`} style={{ width: "100%" }}>
+    <div className="lc-card">
+      <div className="lc-bg" style={{ background: bgGradient }} />
+      <div className="lc-logo">{title}</div>
+      {items.map((item, i) =>
+        item.link !== "#" ? (
+          <a key={i} href={item.link} target="_blank" rel="noopener noreferrer">
+            <div className={`lc-box lc-box${i + 1}`}>
+              <span className="lc-icon">{item.icon}</span>
+            </div>
+          </a>
+        ) : (
+          <div key={i} className={`lc-box lc-box${i + 1}`}>
+            <span className="lc-icon">{item.icon}</span>
+          </div>
+        )
+      )}
+    </div>
+    <style>{`
+      .lc-wrap { display:flex; justify-content:center; align-items:center; }
+      .lc-card {
+        position:relative; width:100%; aspect-ratio:1;
+        border-radius:22px; overflow:hidden;
+        box-shadow:rgba(0,0,0,0.25) 0px 8px 28px;
+        transition:all 0.7s cubic-bezier(.4,0,.2,1);
+        border:1px solid rgba(255,255,255,0.1);
+      }
+      .lc-bg { position:absolute; inset:0; opacity:0.95; transition:opacity 0.5s; }
+      .lc-card:hover .lc-bg { opacity:1; }
+      .lc-logo {
+        position:absolute; right:50%; bottom:50%;
+        transform:translate(50%,50%);
+        transition:all 0.55s cubic-bezier(.4,0,.2,1);
+        font-size:clamp(0.95rem,1.8vw,1.3rem);
+        font-weight:800; color:#fff; letter-spacing:0.15em;
+        z-index:10; pointer-events:none;
+      }
+      .lc-icon {
+        display:inline-flex; align-items:center; justify-content:center;
+        width:22px; height:22px;
+      }
+      .lc-icon svg {
+        stroke:rgba(255,255,255,0.75); fill:none;
+        width:100%; height:100%; transition:all 0.45s ease;
+      }
+      .lc-box {
+        position:absolute; padding:12px;
+        display:flex; justify-content:flex-end; align-items:flex-start;
+        background:rgba(255,255,255,0.12); backdrop-filter:blur(6px);
+        border-top:1px solid rgba(255,255,255,0.35);
+        border-right:1px solid rgba(255,255,255,0.35);
+        border-radius:10% 13% 42% 0%/10% 12% 75% 0%;
+        box-shadow:rgba(0,0,0,0.18) -6px 6px 18px;
+        transform-origin:bottom left;
+        transition:all 0.75s cubic-bezier(.4,0,.2,1);
+      }
+      .lc-box::before {
+        content:""; position:absolute; inset:0;
+        border-radius:inherit; opacity:0;
+        transition:opacity 0.45s ease;
+      }
+      .lc-box:hover svg { stroke:#fff; filter:drop-shadow(0 0 5px #fff); transform:scale(1.1); }
+      .lc-box1 { width:82%; height:82%; bottom:-80%; left:-80%; }
+      .lc-box1:hover::before { opacity:1; }
+      .lc-box2 { width:62%; height:62%; bottom:-60%; left:-60%; transition-delay:0.08s; }
+      .lc-box2:hover::before { opacity:1; }
+      .lc-box3 { width:42%; height:42%; bottom:-40%; left:-40%; transition-delay:0.16s; }
+      .lc-box3:hover::before { opacity:1; }
+      .lc-box4 { width:22%; height:22%; bottom:-20%; left:-20%; transition-delay:0.24s; }
+      .lc-box4:hover::before { opacity:1; }
+      .lc-card:hover { transform:scale(1.03); box-shadow:rgba(0,0,0,0.35) 0px 14px 40px; }
+      .lc-card:hover .lc-box { bottom:-1px; left:-1px; }
+      .lc-card:hover .lc-logo { transform:translate(40%, -65%); letter-spacing:0px; font-size:clamp(0.75rem,1.3vw,1rem); }
+      .lc-${id} .lc-box1::before { background:${items[0]?.hoverBg}; }
+      .lc-${id} .lc-box2::before { background:${items[1]?.hoverBg}; }
+      .lc-${id} .lc-box3::before { background:${items[2]?.hoverBg}; }
+      .lc-${id} .lc-box4::before { background:${items[3]?.hoverBg}; }
+    `}</style>
+  </div>
+);
 
 export default function Kontak() {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "", budget: "" });
@@ -74,7 +149,7 @@ export default function Kontak() {
         </h1>
       </motion.div>
 
-      <div className="grid gap-4" style={{ gridTemplateColumns: "1fr 1.6fr" }}>
+      <div className="grid md:grid-cols-[1fr_1.6fr] gap-6">
         {/* Left: Contact Info */}
         <motion.div
           className="flex flex-col gap-4"
@@ -116,72 +191,30 @@ export default function Kontak() {
             </p>
           </motion.div>
 
-          {/* Contact details */}
-          <motion.div
-            className="rounded-2xl p-4"
-            style={{ backgroundColor: "rgba(246,247,237,0.04)", border: "1px solid rgba(246,247,237,0.07)" }}
-            variants={itemVariants}
-          >
-            <p className="uppercase mb-3" style={{ color: "rgba(246,247,237,0.35)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.12em" }}>
-              KONTAK LANGSUNG
-            </p>
-            <div className="flex flex-col gap-2">
-              {contactInfo.map((item, i) => (
-                <motion.a
-                  key={item.label}
-                  href={item.link}
-                  className="flex items-center gap-3 p-2.5 rounded-xl"
-                  style={{ textDecoration: "none" }}
-                  initial={{ opacity: 0, x: -15 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3 + i * 0.1 }}
-                  whileHover={{ backgroundColor: "rgba(219,230,76,0.06)", x: 3 }}
-                >
-                  <span
-                    className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
-                    style={{ backgroundColor: "rgba(219,230,76,0.1)", fontSize: "14px" }}
-                  >
-                    {item.icon}
-                  </span>
-                  <div>
-                    <p style={{ color: "rgba(246,247,237,0.4)", fontSize: "8px", fontWeight: 600 }}>{item.label}</p>
-                    <p style={{ color: C.white, fontSize: "11px", fontWeight: 600 }}>{item.value}</p>
-                  </div>
-                </motion.a>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Social links */}
-          <motion.div variants={itemVariants}>
-            <p className="uppercase mb-3" style={{ color: "rgba(246,247,237,0.35)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.12em" }}>
-              MEDIA SOSIAL
-            </p>
-            <div className="grid grid-cols-2 gap-2">
-              {socialLinks.map((s, i) => (
-                <motion.button
-                  key={s.label}
-                  className="rounded-xl p-3 flex items-center gap-2.5 text-left"
-                  style={{ backgroundColor: "rgba(246,247,237,0.04)", border: "1px solid rgba(246,247,237,0.07)" }}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.5 + i * 0.08 }}
-                  whileHover={{ backgroundColor: "rgba(246,247,237,0.08)", y: -2, scale: 1.02 }}
-                  whileTap={{ scale: 0.97 }}
-                >
-                  <div
-                    className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
-                    style={{ backgroundColor: `${s.color}22`, border: `1px solid ${s.color}33` }}
-                  >
-                    <span style={{ color: s.color, fontSize: "9px", fontWeight: 900 }}>{s.icon}</span>
-                  </div>
-                  <div>
-                    <p style={{ color: C.white, fontSize: "10px", fontWeight: 700 }}>{s.label}</p>
-                    <p style={{ color: "rgba(246,247,237,0.4)", fontSize: "8px" }}>{s.handle}</p>
-                  </div>
-                </motion.button>
-              ))}
-            </div>
+          {/* Social & Contact Cards */}
+          <motion.div className="grid grid-cols-2 gap-3" variants={itemVariants}>
+            <LinksCard
+              id="socials"
+              title="Socials"
+              bgGradient={`linear-gradient(135deg, ${C.blue} 0%, ${C.midnight} 100%)`}
+              items={[
+                { link: "https://www.youtube.com/@MECHUP14", icon: <Youtube />, hoverBg: "radial-gradient(circle at 30% 107%, #ff0000 0%, #cc0000 90%)" },
+                { link: "https://www.linkedin.com/in/m-yusuf-riyadi-661535386", icon: <Linkedin />, hoverBg: "radial-gradient(circle at 30% 107%, #0077b5 0%, #005582 90%)" },
+                { link: "https://github.com/ucupryd", icon: <Github />, hoverBg: "radial-gradient(circle at 30% 107%, #333 0%, #111 90%)" },
+                { link: "https://www.instagram.com/ucup_ryd/", icon: <Instagram />, hoverBg: "radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #ff53d4 60%, #62c2fe 90%)" },
+              ]}
+            />
+            <LinksCard
+              id="contacts"
+              title="Kontak"
+              bgGradient={`linear-gradient(135deg, ${C.green} 0%, ${C.mantisLight} 100%)`}
+              items={[
+                { link: "mailto:myusufriyadi@students.undip.ac.id", icon: <GraduationCap />, hoverBg: "radial-gradient(circle at 30% 107%, #4CAF50 0%, #2E7D32 90%)" },
+                { link: "mailto:yusufriyadi141004@gmail.com", icon: <Mail />, hoverBg: "radial-gradient(circle at 30% 107%, #ea4335 0%, #c5221f 90%)" },
+                { link: "https://wa.me/62895422885344", icon: <Phone />, hoverBg: "radial-gradient(circle at 30% 107%, #25D366 0%, #128C7E 90%)" },
+                { link: "#", icon: <MapPin />, hoverBg: "radial-gradient(circle at 30% 107%, #FF9800 0%, #E65100 90%)" },
+              ]}
+            />
           </motion.div>
 
           {/* Availability */}
