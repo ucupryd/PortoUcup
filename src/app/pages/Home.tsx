@@ -3,9 +3,7 @@ import { motion } from "motion/react";
 import { C, containerVariants, itemVariants } from "../components/constants";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 
-const PROFILE_IMG =
-  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx5b3VuZyUyMG1hbiUyMHByb2Zlc3Npb25hbCUyMHBvcnRyYWl0fGVufDF8fHx8MTc3NzI4NzI0MHww&ixlib=rb-4.1.0&q=80&w=1080";
-
+import PROFILE_IMG from "../assets/profil.jpeg";
 const skills = [
   { name: "IoT & Embedded Systems", level: 88 },
   { name: "HMI Development (Nextion)", level: 85 },
@@ -125,10 +123,10 @@ export default function Home() {
             className="uppercase leading-none mb-2"
             style={{
               color: C.white,
-              fontSize: "clamp(32px, 4vw, 58px)",
+              fontSize: "clamp(28px, 3.2vw, 48px)",
               fontWeight: 900,
               letterSpacing: "-0.02em",
-              lineHeight: 1.02,
+              lineHeight: 1.04,
             }}
           >
             M. YUSUF
@@ -145,10 +143,10 @@ export default function Home() {
             className="uppercase leading-none"
             style={{
               color: C.white,
-              fontSize: "clamp(20px, 2.5vw, 38px)",
+              fontSize: "clamp(18px, 2.2vw, 32px)",
               fontWeight: 900,
               letterSpacing: "-0.01em",
-              lineHeight: 1.1,
+              lineHeight: 1.08,
               opacity: 0.88,
             }}
           >
@@ -160,7 +158,7 @@ export default function Home() {
         <div className="relative z-10 flex items-end justify-between">
           <motion.p
             className="max-w-xs text-sm leading-relaxed"
-            style={{ color: "rgba(246,247,237,0.7)", fontSize: "12px", lineHeight: 1.65 }}
+            style={{ color: "rgba(246,247,237,0.7)", fontSize: "11px", lineHeight: 1.6 }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
@@ -177,7 +175,7 @@ export default function Home() {
           >
             {[{ num: "20+", label: "Proyek" }, { num: "7+", label: "Penghargaan" }, { num: "3+", label: "Magang" }].map((stat) => (
               <div key={stat.label} className="text-right">
-                <p style={{ color: C.lime, fontWeight: 900, fontSize: "clamp(20px, 2.2vw, 30px)", lineHeight: 1 }}>
+                <p style={{ color: C.lime, fontWeight: 900, fontSize: "clamp(18px, 2.0vw, 26px)", lineHeight: 1 }}>
                   {stat.num}
                 </p>
                 <p style={{ color: "rgba(246,247,237,0.5)", fontSize: "9px", marginTop: "2px" }}>{stat.label}</p>

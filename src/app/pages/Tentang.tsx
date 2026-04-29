@@ -2,8 +2,7 @@ import { motion } from "motion/react";
 import { C, containerVariants, itemVariants } from "../components/constants";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 
-const PROFILE_IMG =
-  "https://images.unsplash.com/photo-1758876204244-930299843f07?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx5b3VuZyUyMHByb2Zlc3Npb25hbCUyMHNtaWxpbmclMjBtb2Rlcm4lMjBvZmZpY2V8ZW58MXx8fHwxNzc3Mjg3MjQwfDA&ixlib=rb-4.1.0&q=80&w=1080";
+import PROFILE_IMG from "../assets/profil.jpeg";
 
 const values = [
   { icon: "⚡", title: "Inovasi", desc: "Selalu mengeksplorasi solusi baru di bidang IoT, otomasi, dan teknologi kontrol." },
