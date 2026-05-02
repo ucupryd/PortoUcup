@@ -1,14 +1,15 @@
 import { motion } from "motion/react";
+import { Zap, Target, Handshake, TrendingUp } from "lucide-react";
 import { C, containerVariants, itemVariants } from "../components/constants";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 
 import PROFILE_IMG from "../assets/profil.jpeg";
 
 const values = [
-  { icon: "⚡", title: "Inovasi", desc: "Selalu mengeksplorasi solusi baru di bidang IoT, otomasi, dan teknologi kontrol." },
-  { icon: "🎯", title: "Presisi", desc: "Setiap sistem dan kode dibuat dengan ketelitian tinggi dan standar teknis." },
-  { icon: "🤝", title: "Kolaborasi", desc: "Aktif di tim robotika, organisasi, dan proyek lintas disiplin." },
-  { icon: "📈", title: "Dampak", desc: "Fokus pada solusi nyata yang memberi manfaat dan kemudahan bagi pengguna." },
+  { Icon: Zap, title: "Inovasi", desc: "Selalu mengeksplorasi solusi baru di bidang IoT, otomasi, dan teknologi kontrol." },
+  { Icon: Target, title: "Presisi", desc: "Setiap sistem dan kode dibuat dengan ketelitian tinggi dan standar teknis." },
+  { Icon: Handshake, title: "Kolaborasi", desc: "Aktif di tim robotika, organisasi, dan proyek lintas disiplin." },
+  { Icon: TrendingUp, title: "Dampak", desc: "Fokus pada solusi nyata yang memberi manfaat dan kemudahan bagi pengguna." },
 ];
 
 const tools = [
@@ -123,7 +124,7 @@ export default function Tentang() {
                     y: -2,
                   }}
                 >
-                  <span style={{ fontSize: "16px" }}>{v.icon}</span>
+                  <v.Icon size={16} color={C.lime} />
                   <p className="mt-1.5" style={{ color: C.white, fontSize: "10px", fontWeight: 700 }}>{v.title}</p>
                   <p style={{ color: "rgba(246,247,237,0.4)", fontSize: "8px", lineHeight: 1.5 }}>{v.desc}</p>
                 </motion.div>

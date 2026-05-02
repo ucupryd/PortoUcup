@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Clock, RefreshCcw, Smile, Star } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { C, containerVariants, itemVariants } from "../components/constants";
 
@@ -78,32 +79,11 @@ const testimonials = [
 ];
 
 const stats = [
-  { num: "30+", label: "Klien Puas", icon: "😊" },
-  { num: "4.9", label: "Rating Rata-rata", icon: "⭐" },
-  { num: "98%", label: "Repeat Client", icon: "🔄" },
-  { num: "100%", label: "On-Time Delivery", icon: "⏰" },
+  { num: "30+", label: "Klien Puas", Icon: Smile },
+  { num: "4.9", label: "Rating Rata-rata", Icon: Star },
+  { num: "98%", label: "Repeat Client", Icon: RefreshCcw },
+  { num: "100%", label: "On-Time Delivery", Icon: Clock },
 ];
-
-function AnimatedCounter({ target }: { target: number }) {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    let start = 0;
-    const step = target / 40;
-    const timer = setInterval(() => {
-      start += step;
-      if (start >= target) {
-        setCount(target);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(start));
-      }
-    }, 30);
-    return () => clearInterval(timer);
-  }, [target]);
-
-  return <>{count}</>;
-}
 
 export default function Testimoni() {
   const [featured, setFeatured] = useState(0);
@@ -160,7 +140,7 @@ export default function Testimoni() {
               animate={{ scale: [1, 1.3, 1] }}
               transition={{ duration: 4 + i, repeat: Infinity }}
             />
-            <span style={{ fontSize: "18px" }}>{stat.icon}</span>
+            <stat.Icon size={18} color={C.lime} />
             <p style={{ color: C.lime, fontWeight: 900, fontSize: "22px", lineHeight: 1, marginTop: "4px" }}>
               {stat.num}
             </p>
@@ -210,12 +190,12 @@ export default function Testimoni() {
                 {Array.from({ length: featuredTestimonial.rating }).map((_, i) => (
                   <motion.span
                     key={i}
-                    style={{ fontSize: "14px" }}
                     initial={{ opacity: 0, scale: 0 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: i * 0.08 }}
+                    className="inline-flex"
                   >
-                    ⭐
+                    <Star size={14} color={C.lime} fill={C.lime} />
                   </motion.span>
                 ))}
               </div>

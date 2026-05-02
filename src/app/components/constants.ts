@@ -39,10 +39,3 @@ export const itemVariants = {
   },
 };
 
-export const navItems = [
-  { label: "TENTANG", sub: "About", icon: "👤", path: "/tentang" },
-  { label: "PENGALAMAN", sub: "Experience", icon: "💼", path: "/pengalaman" },
-  { label: "KARYA", sub: "Portfolio", icon: "🎨", path: "/karya" },
-  { label: "TESTIMONI", sub: "Testimonials", icon: "⭐", path: "/testimoni" },
-  { label: "KONTAK", sub: "Contact", icon: "✉️", path: "/kontak" },
-];

@@ -8,8 +8,8 @@ import {
   Star,
   Mail,
   ChevronLeft,
-  Zap,
 } from "lucide-react";
+import LOGO from "../assets/logo.png";
 
 const navItems = [
   { label: "TENTANG", sub: "About", Icon: UserRound, path: "/tentang" },
@@ -29,7 +29,7 @@ export function NavPanel({ open = true, onToggle }: NavPanelProps) {
 
   return (
     <motion.div
-      className="flex flex-col h-full rounded-2xl relative"
+      className="nav-panel flex flex-col h-full rounded-2xl relative"
       style={{
         width: "100%",
         backgroundColor: C.midnight,
@@ -67,7 +67,7 @@ export function NavPanel({ open = true, onToggle }: NavPanelProps) {
           whileHover={{ scale: 1.08, rotate: 3 }}
           whileTap={{ scale: 0.95 }}
         >
-          <span style={{ color: C.midnight, fontWeight: 900, fontSize: "12px" }}>YR</span>
+          <img src={LOGO} alt="Logo" style={{ width: 22, height: 22, objectFit: "contain" }} />
         </motion.div>
 
         {/* Subtitle — fade + collapse height */}
@@ -106,6 +106,10 @@ export function NavPanel({ open = true, onToggle }: NavPanelProps) {
                 transition={{ delay: 0.15 + i * 0.07, duration: 0.4 }}
                 whileHover={isActive ? {} : { backgroundColor: "rgba(246,247,237,0.05)" }}
                 title={!open ? label : undefined}
+                onClick={() => {
+                  if (!onToggle || typeof window === "undefined") return;
+                  if (window.innerWidth <= 767) onToggle();
+                }}
               >
                 {isActive && (
                   <div
@@ -173,30 +177,6 @@ export function NavPanel({ open = true, onToggle }: NavPanelProps) {
       {/* ── BOTTOM: CTA + status + toggle ── */}
       <div style={{ padding: "0 8px 14px 8px" }}>
         <div style={{ height: 1, backgroundColor: "rgba(246,247,237,0.08)", margin: "12px 0 12px 0" }} />
-
-        {/* Contact CTA */}
-        <motion.div
-          className="w-full rounded-xl flex items-center justify-center gap-2 cursor-pointer"
-          onClick={() => navigate("/kontak")}
-          style={{
-            backgroundColor: C.lime,
-            height: 36,
-            boxShadow: `0 4px 20px rgba(219,230,76,0.25)`,
-            overflow: "hidden",
-          }}
-          whileHover={{ boxShadow: `0 6px 28px rgba(219,230,76,0.4)`, scale: 1.02 }}
-          whileTap={{ scale: 0.97 }}
-          title={!open ? "Hubungi Saya" : undefined}
-        >
-          <Zap size={14} color={C.midnight} strokeWidth={2.5} style={{ flexShrink: 0 }} />
-          <motion.span
-            animate={{ opacity: open ? 1 : 0, width: open ? "auto" : 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            style={{ color: C.midnight, fontWeight: 800, fontSize: "9px", letterSpacing: "0.08em", overflow: "hidden", whiteSpace: "nowrap" }}
-          >
-            HUBUNGI SAYA
-          </motion.span>
-        </motion.div>
 
         {/* Status + Toggle */}
         <div className="flex items-center mt-3" style={{ justifyContent: "center", gap: 8, minHeight: 20 }}>

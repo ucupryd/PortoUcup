@@ -1,6 +1,18 @@
 import { useNavigate } from "react-router";
 import { motion } from "motion/react";
-import { C, containerVariants, itemVariants } from "../components/constants";
+import {
+  Github,
+  Instagram,
+  Linkedin,
+  Mail,
+  Youtube,
+  Wrench,
+  MessageSquare,
+  Monitor,
+  Smartphone,
+  Target,
+} from "lucide-react";
+import { C } from "../components/constants";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 
 import PROFILE_IMG from "../assets/profil.jpeg";
@@ -19,15 +31,42 @@ const testimonials = [
 ];
 
 const socialLinks = [
-  { icon: "in", label: "LinkedIn" },
-  { icon: "gh", label: "GitHub" },
-  { icon: "ig", label: "Instagram" },
-  { icon: "yt", label: "YouTube" },
-  { icon: "em", label: "Email" },
+  {
+    Icon: Linkedin,
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/m-yusuf-riyadi-661535386",
+    className: "social-linkedin",
+  },
+  {
+    Icon: Github,
+    label: "GitHub",
+    href: "https://github.com/ucupryd",
+    className: "social-github",
+  },
+  {
+    Icon: Instagram,
+    label: "Instagram",
+    href: "https://www.instagram.com/ucup_ryd/",
+    className: "social-instagram",
+  },
+  {
+    Icon: Youtube,
+    label: "YouTube",
+    href: "https://www.youtube.com/@MECHUP14",
+    className: "social-youtube",
+  },
+  {
+    Icon: Mail,
+    label: "Email",
+    href: "mailto:yusufriyadi141004@gmail.com",
+    className: "social-email",
+  },
 ];
 
 export default function Home() {
   const navigate = useNavigate();
+
+  const ctaIcons = [Monitor, Smartphone, Target];
 
   const bentoItem = {
     initial: { opacity: 0, scale: 0.94, y: 20 },
@@ -36,7 +75,7 @@ export default function Home() {
 
   return (
     <div
-      className="h-full overflow-hidden"
+      className="home-grid h-full overflow-hidden"
       style={{
         display: "grid",
         gridTemplateColumns: "1fr 1fr 1fr 1.1fr",
@@ -53,20 +92,13 @@ export default function Home() {
     >
       {/* ─── HERO PANEL ─── */}
       <motion.div
-        className="rounded-2xl p-8 flex flex-col justify-between relative overflow-hidden"
+        className="home-panel home-hero rounded-2xl p-8 flex flex-col justify-between relative overflow-hidden"
         style={{ gridArea: "hero", backgroundColor: "transparent", boxShadow: `0 8px 40px rgba(0,0,0,0.18)` }}
         variants={bentoItem}
         initial="initial"
         animate="animate"
         transition={{ duration: 0.6, delay: 0.05 }}
       >
-        {/* BG decoration */}
-        <motion.div
-          className="absolute top-0 right-0 w-72 h-72 rounded-full pointer-events-none"
-          style={{ background: C.lime, filter: "blur(70px)", transform: "translate(20%, -20%)", opacity: 0.1 }}
-          animate={{ scale: [1, 1.2, 1], opacity: [0.08, 0.14, 0.08] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        />
         {/* Background video (looping, muted) */}
         <video
           key="hero-bg-video"
@@ -75,21 +107,22 @@ export default function Home() {
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="auto"
           aria-hidden
           tabIndex={-1}
           className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-          style={{ zIndex: 0, opacity: 0.99, filter: "brightness(0.55) contrast(1.02)", willChange: "opacity" }}
+          style={{ zIndex: 0, opacity: 0.98 }}
         />
-        <motion.div
-          className="absolute bottom-0 left-1/3 w-48 h-48 rounded-full pointer-events-none"
-          style={{ background: "#004D2E", filter: "blur(50px)", opacity: 0.4, transform: "translateY(30%)" }}
-          animate={{ x: [0, 20, 0], y: [0, -10, 0] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.55) 100%)",
+            zIndex: 1,
+          }}
         />
 
         {/* Top row */}
-        <div className="flex items-start justify-between relative z-10">
+        <div className="home-hero-top flex items-start justify-between relative z-10">
           <motion.div
             className="inline-flex items-center gap-2 rounded-full px-3 py-1.5"
             style={{ backgroundColor: "rgba(0,31,63,0.25)", border: "1px solid rgba(246,247,237,0.15)" }}
@@ -107,7 +140,7 @@ export default function Home() {
               OPEN TO WORK & COLLABORATION
             </span>
           </motion.div>
-          <div className="flex items-center gap-2">
+          <div className="home-hero-tags flex items-center gap-2">
             {["IoT", "HMI", "Web Dev"].map((tag, i) => (
               <motion.span
                 key={tag}
@@ -130,13 +163,13 @@ export default function Home() {
 
         {/* Hero text */}
         <motion.div
-          className="relative z-10 flex-1 flex flex-col justify-center py-4"
+          className="home-hero-text relative z-10 flex-1 flex flex-col justify-center py-4"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.25, duration: 0.7 }}
         >
           <h1
-            className="uppercase leading-none mb-2"
+            className="home-hero-title uppercase leading-none mb-2"
             style={{
               color: C.white,
               fontSize: "clamp(28px, 3.2vw, 48px)",
@@ -156,7 +189,7 @@ export default function Home() {
             </motion.span>
           </h1>
           <h1
-            className="uppercase leading-none"
+            className="home-hero-subtitle uppercase leading-none"
             style={{
               color: C.white,
               fontSize: "clamp(18px, 2.2vw, 32px)",
@@ -171,7 +204,7 @@ export default function Home() {
         </motion.div>
 
         {/* Bottom row */}
-        <div className="relative z-10 flex items-end justify-between">
+        <div className="home-hero-bottom relative z-10 flex items-end justify-between">
           <motion.p
             className="max-w-xs text-sm leading-relaxed"
             style={{ color: "rgba(246,247,237,0.7)", fontSize: "11px", lineHeight: 1.6 }}
@@ -184,7 +217,7 @@ export default function Home() {
             Passionate di IoT, sistem kontrol, HMI & pengembangan web.
           </motion.p>
           <motion.div
-            className="flex gap-6"
+            className="home-hero-stats flex gap-6"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.45, duration: 0.5 }}
@@ -203,7 +236,7 @@ export default function Home() {
 
       {/* ─── PROFILE PANEL ─── */}
       <motion.div
-        className="rounded-2xl overflow-hidden relative flex flex-col justify-end"
+        className="home-panel home-profile rounded-2xl overflow-hidden relative flex flex-col justify-end"
         style={{ gridArea: "profile", backgroundColor: C.blue, boxShadow: `0 8px 32px rgba(30,72,143,0.3)` }}
         variants={bentoItem}
         initial="initial"
@@ -237,7 +270,7 @@ export default function Home() {
 
       {/* ─── SKILLS PANEL ─── */}
       <motion.div
-        className="rounded-2xl p-4 flex flex-col relative overflow-hidden"
+        className="home-panel home-skill1 rounded-2xl p-4 flex flex-col relative overflow-hidden"
         style={{ gridArea: "skill1", backgroundColor: C.mantis, boxShadow: `0 8px 32px rgba(61,153,112,0.2)` }}
         variants={bentoItem}
         initial="initial"
@@ -254,7 +287,7 @@ export default function Home() {
             <p className="tracking-widest uppercase" style={{ color: C.lime, fontSize: "9px", fontWeight: 700 }}>KEAHLIAN</p>
             <p className="tracking-widest uppercase" style={{ color: C.white, fontSize: "9px", opacity: 0.5 }}>UTAMA</p>
           </div>
-          <span style={{ fontSize: "18px" }}>🛠️</span>
+          <Wrench size={16} color={C.lime} />
         </div>
         <div className="flex flex-col gap-2.5 flex-1 justify-center">
           {skills.map((skill, i) => (
@@ -279,7 +312,7 @@ export default function Home() {
 
       {/* ─── TESTIMONIALS PANEL ─── */}
       <motion.div
-        className="rounded-2xl p-4 flex flex-col relative overflow-hidden"
+        className="home-panel home-skill2 rounded-2xl p-4 flex flex-col relative overflow-hidden"
         style={{ gridArea: "skill2", backgroundColor: C.mantisLight, boxShadow: `0 8px 32px rgba(46,125,94,0.2)` }}
         variants={bentoItem}
         initial="initial"
@@ -296,7 +329,7 @@ export default function Home() {
             <p className="tracking-widest uppercase" style={{ color: C.lime, fontSize: "9px", fontWeight: 700 }}>UMPAN BALIK</p>
             <p className="tracking-widest uppercase" style={{ color: C.white, fontSize: "9px", opacity: 0.5 }}>KLIEN</p>
           </div>
-          <span style={{ fontSize: "18px" }}>💬</span>
+          <MessageSquare size={16} color={C.lime} />
         </div>
         <div className="flex flex-col gap-3 flex-1 justify-center">
           {testimonials.map((t) => (
@@ -330,7 +363,7 @@ export default function Home() {
 
       {/* ─── CTA PANEL ─── */}
       <motion.div
-        className="rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden cursor-pointer"
+        className="home-panel home-cta rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden cursor-pointer"
         style={{ gridArea: "cta", backgroundColor: C.lime, boxShadow: `0 8px 40px rgba(219,230,76,0.3)` }}
         variants={bentoItem}
         initial="initial"
@@ -346,13 +379,6 @@ export default function Home() {
           transition={{ duration: 6, repeat: Infinity }}
         />
         <div>
-          <motion.div
-            className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
-            style={{ backgroundColor: "rgba(0,31,63,0.15)" }}
-            whileHover={{ rotate: 10 }}
-          >
-            <span style={{ fontSize: "18px" }}>🎨</span>
-          </motion.div>
           <p className="uppercase" style={{ color: C.midnight, fontWeight: 900, fontSize: "11px", letterSpacing: "0.08em", opacity: 0.5 }}>
             PORTOFOLIO
           </p>
@@ -366,14 +392,14 @@ export default function Home() {
           </h3>
         </div>
         <div className="flex gap-1.5 my-3">
-          {["🖥️", "📱", "🎯"].map((icon, i) => (
+          {ctaIcons.map((Icon, i) => (
             <motion.div
               key={i}
               className="flex-1 h-10 rounded-lg flex items-center justify-center"
               style={{ backgroundColor: "rgba(0,31,63,0.12)" }}
               whileHover={{ backgroundColor: "rgba(0,31,63,0.2)", scale: 1.05 }}
             >
-              <span style={{ fontSize: "14px" }}>{icon}</span>
+              <Icon size={14} color={C.midnight} />
             </motion.div>
           ))}
         </div>
@@ -399,7 +425,7 @@ export default function Home() {
 
       {/* ─── FOOTER ─── */}
       <motion.div
-        className="rounded-xl px-5 flex items-center justify-between relative overflow-hidden"
+        className="home-panel home-footer rounded-xl px-5 flex items-center justify-between relative"
         style={{ gridArea: "footer", backgroundColor: C.mantis, border: `1px solid rgba(246,247,237,0.06)` }}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -411,18 +437,19 @@ export default function Home() {
           </div>
           <p style={{ color: "rgba(246,247,237,0.4)", fontSize: "9px" }}>© 2026 M. Yusuf Riyadi. All rights reserved.</p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="social-bar flex items-center gap-2">
           {socialLinks.map((s) => (
-            <motion.button
+            <a
               key={s.label}
-              title={s.label}
-              className="w-7 h-7 rounded-lg flex items-center justify-center"
-              style={{ backgroundColor: "rgba(0,31,63,0.3)", border: "1px solid rgba(246,247,237,0.08)" }}
-              whileHover={{ scale: 1.15, backgroundColor: "rgba(219,230,76,0.15)" }}
-              whileTap={{ scale: 0.9 }}
+              href={s.href}
+              target={s.href.startsWith("http") ? "_blank" : undefined}
+              rel={s.href.startsWith("http") ? "noreferrer" : undefined}
+              className={`social-btn ${s.className}`}
+              aria-label={s.label}
             >
-              <span style={{ color: C.white, fontSize: "8px", fontWeight: 700, opacity: 0.7 }}>{s.icon}</span>
-            </motion.button>
+              <s.Icon className="social-icon" aria-hidden />
+              <span className="social-tooltip">{s.label}</span>
+            </a>
           ))}
         </div>
         <div className="flex items-center gap-3">

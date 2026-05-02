@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router";
 import { AnimatePresence, motion } from "motion/react";
 import { NavPanel } from "./NavPanel";
@@ -7,11 +7,30 @@ import { C, pageVariants } from "./constants";
 
 export function Layout() {
   const location = useLocation();
-  const [navOpen, setNavOpen] = useState(true);
+  const [navOpen, setNavOpen] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState<boolean>(() => (typeof window !== "undefined" ? window.innerWidth <= 767 : false));
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(max-width: 767px)");
+    const onChange = (e: MediaQueryListEvent | MediaQueryList) => {
+      const matches = (e as any).matches ?? mq.matches;
+      setIsMobile(matches);
+      if (matches) setNavOpen(false);
+    };
+    setIsMobile(mq.matches);
+    if (mq.matches) setNavOpen(false);
+    if (mq.addEventListener) mq.addEventListener("change", onChange as any);
+    else mq.addListener(onChange as any);
+    return () => {
+      if (mq.removeEventListener) mq.removeEventListener("change", onChange as any);
+      else mq.removeListener(onChange as any);
+    };
+  }, []);
 
   return (
     <div
-      className="w-full h-screen overflow-hidden flex relative"
+      className={`app-root w-full h-screen overflow-hidden flex relative ${navOpen ? "nav-open" : ""}`}
       style={{
         backgroundColor: C.midnight,
         fontFamily: "'Inter', 'Helvetica Neue', Arial, sans-serif",
@@ -19,12 +38,26 @@ export function Layout() {
         padding: "12px",
       }}
     >
+      {/* Mobile open button */}
+      <button
+        className="mobile-nav-toggle"
+        aria-label="Open navigation"
+        onClick={() => setNavOpen(true)}
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M3 6h18M3 12h18M3 18h18" stroke={C.white} strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+
+      {/* Backdrop for mobile when nav is open */}
+      <div className={`mobile-backdrop ${navOpen ? "visible" : ""}`} onClick={() => setNavOpen(false)} />
       {/* Global particle background */}
       <ParticleField />
 
       {/* Left nav panel — collapses to icon-only mode */}
       <motion.div
-        animate={{ width: navOpen ? 200 : 58 }}
+        className="nav-wrapper"
+        animate={isMobile ? {} : { width: navOpen ? 200 : 58 }}
         transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
         style={{ flexShrink: 0, overflow: "hidden" }}
       >
