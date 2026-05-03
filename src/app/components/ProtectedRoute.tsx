@@ -3,7 +3,7 @@ import { Navigate, Outlet } from 'react-router';
 import { supabase } from '../../lib/supabase';
 import { Session } from '@supabase/supabase-js';
 
-export function ProtectedRoute() {
+export function ProtectedRoute({ children }: { children?: React.ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -28,11 +28,11 @@ export function ProtectedRoute() {
     return <div className="flex justify-center items-center h-screen">Loading...</div>; // Bisa diganti dengan komponen Loader
   }
 
-  // If no session exists, navigate to the auth (login) page
+  // If no session exists, navigate to the home page
   if (!session) {
-    return <Navigate to="/auth" replace />;
+    return <Navigate to="/" replace />;
   }
 
-  // If session exists, render child routes
-  return <Outlet />;
+  // If session exists, render children or child routes
+  return children ? <>{children}</> : <Outlet />;
 }
