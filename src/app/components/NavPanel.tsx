@@ -32,9 +32,9 @@ export function NavPanel({ open = true, onToggle }: NavPanelProps) {
       className="nav-panel flex flex-col h-full rounded-2xl relative"
       style={{
         width: "100%",
-        backgroundColor: "rgba(0, 31, 63, 0.4)",
-        backdropFilter: "blur(12px)",
-        WebkitBackdropFilter: "blur(12px)",
+        backgroundColor: "rgba(0, 31, 63, 0.15)",
+        backdropFilter: "blur(8px)",
+        WebkitBackdropFilter: "blur(8px)",
         border: `1px solid rgba(246,247,237,0.08)`,
         boxShadow: `0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(246,247,237,0.05)`,
         overflow: "hidden",
@@ -66,6 +66,10 @@ export function NavPanel({ open = true, onToggle }: NavPanelProps) {
           className="rounded-xl flex items-center justify-center cursor-pointer flex-shrink-0"
           style={{ width: 40, height: 40, backgroundColor: C.lime }}
           onClick={() => navigate("/")}
+          onContextMenu={(e) => {
+            e.preventDefault();
+            navigate("/auth");
+          }}
           whileHover={{ scale: 1.08, rotate: 3 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -96,8 +100,8 @@ export function NavPanel({ open = true, onToggle }: NavPanelProps) {
               <motion.div
                 className="rounded-xl flex items-center relative overflow-hidden cursor-pointer"
                 style={{
-                  backgroundColor: isActive ? "rgba(219,230,76,0.12)" : "transparent",
-                  border: isActive ? `1px solid rgba(219,230,76,0.2)` : "1px solid transparent",
+                  backgroundColor: isActive && open ? "rgba(219,230,76,0.12)" : "transparent",
+                  border: isActive && open ? `1px solid rgba(219,230,76,0.2)` : "1px solid transparent",
                   height: open ? 42 : 48,
                   paddingLeft: open ? 10 : 0,
                   paddingRight: open ? 10 : 0,
