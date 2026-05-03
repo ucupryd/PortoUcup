@@ -4,9 +4,9 @@ import { C, containerVariants, itemVariants } from "../components/constants";
 import { Instagram, Linkedin, Github, Youtube, Phone, Mail, MapPin, GraduationCap } from "lucide-react";
 
 const availability = [
-  { day: "Senin – Jumat", time: "08.00 – 17.00 WIB", available: true },
-  { day: "Sabtu", time: "09.00 – 13.00 WIB", available: true },
-  { day: "Minggu", time: "Tidak tersedia", available: false },
+  { day: "Mon – Fri", time: "08:00 – 17:00", available: true },
+  { day: "Saturday", time: "09:00 – 13:00", available: true },
+  { day: "Sunday", time: "Not available", available: false },
 ];
 
 type FormStatus = "idle" | "sending" | "success" | "error";
@@ -133,19 +133,15 @@ export default function Kontak() {
       <motion.div className="mb-5" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
         <div className="flex items-center gap-3 mb-1">
           <span style={{ color: C.lime, fontSize: "10px", fontWeight: 700, letterSpacing: "0.15em" }}>
-            05 — KONTAK
+            05 — CONTACT
           </span>
           <div className="flex-1 h-px" style={{ backgroundColor: "rgba(219,230,76,0.2)" }} />
         </div>
         <h1 className="uppercase" style={{ color: C.white, fontWeight: 900, fontSize: "clamp(22px, 3vw, 38px)", letterSpacing: "-0.02em" }}>
-          MARI{" "}
-          <motion.span
-            style={{ color: C.lime }}
-            animate={{ textShadow: [`0 0 20px rgba(219,230,76,0)`, `0 0 30px rgba(219,230,76,0.5)`, `0 0 20px rgba(219,230,76,0)`] }}
-            transition={{ duration: 3, repeat: Infinity }}
-          >
-            BERKOLABORASI
-          </motion.span>
+          LET'S{" "}
+          <span style={{ color: C.lime }}>
+            COLLABORATE
+          </span>
         </h1>
       </motion.div>
 
@@ -164,30 +160,26 @@ export default function Kontak() {
             variants={itemVariants}
             whileHover={{ scale: 1.01 }}
           >
-            <motion.div
+            <div
               className="absolute -top-6 -right-6 w-24 h-24 rounded-full pointer-events-none"
-              style={{ background: C.lime, filter: "blur(30px)", opacity: 0.12 }}
-              animate={{ scale: [1, 1.4, 1] }}
-              transition={{ duration: 5, repeat: Infinity }}
+              style={{ background: `radial-gradient(circle, ${C.lime} 0%, transparent 70%)`, opacity: 0.15 }}
             />
             <div className="flex items-center gap-2 mb-3">
-              <motion.span
+              <span
                 className="w-2.5 h-2.5 rounded-full"
                 style={{ backgroundColor: C.lime }}
-                animate={{ scale: [1, 1.5, 1], opacity: [1, 0.5, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
               />
               <span style={{ color: C.lime, fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em" }}>
-                TERSEDIA UNTUK PROYEK
+                AVAILABLE FOR WORK
               </span>
             </div>
             <p style={{ color: C.white, fontWeight: 900, fontSize: "17px", lineHeight: 1.3 }}>
-              Ada proyek IoT atau otomasi?
+              Have an IoT or automation project?
               <br />
-              <span style={{ opacity: 0.7 }}>Mari berkolaborasi! 🚀</span>
+              <span style={{ opacity: 0.7 }}>Let's collaborate! 🚀</span>
             </p>
             <p className="mt-3" style={{ color: "rgba(246,247,237,0.6)", fontSize: "11px", lineHeight: 1.6 }}>
-              Terbuka untuk proyek IoT, sistem kontrol, HMI, web development, freelance, atau diskusi teknis bersama.
+              Open for IoT projects, control systems, HMI, web development, freelance, or technical discussions.
             </p>
           </motion.div>
 
@@ -206,7 +198,7 @@ export default function Kontak() {
             />
             <LinksCard
               id="contacts"
-              title="Kontak"
+              title="Contact"
               bgGradient={`linear-gradient(135deg, ${C.green} 0%, ${C.mantisLight} 100%)`}
               items={[
                 { link: "mailto:myusufriyadi@students.undip.ac.id", icon: <GraduationCap />, hoverBg: "radial-gradient(circle at 30% 107%, #4CAF50 0%, #2E7D32 90%)" },
@@ -224,7 +216,7 @@ export default function Kontak() {
             variants={itemVariants}
           >
             <p className="uppercase mb-3" style={{ color: "rgba(246,247,237,0.5)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.12em" }}>
-              JAM KERJA
+              WORKING HOURS
             </p>
             {availability.map((slot, i) => (
               <div
@@ -256,11 +248,9 @@ export default function Kontak() {
           transition={{ delay: 0.25, duration: 0.6 }}
         >
           {/* BG decoration */}
-          <motion.div
+          <div
             className="absolute -bottom-12 -right-12 w-40 h-40 rounded-full pointer-events-none"
-            style={{ background: C.green, filter: "blur(50px)", opacity: 0.08 }}
-            animate={{ scale: [1, 1.4, 1] }}
-            transition={{ duration: 8, repeat: Infinity }}
+            style={{ background: `radial-gradient(circle, ${C.green} 0%, transparent 70%)`, opacity: 0.15 }}
           />
 
           <AnimatePresence mode="wait">
@@ -272,21 +262,19 @@ export default function Kontak() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
               >
-                <motion.div
+                <div
                   className="w-16 h-16 rounded-full flex items-center justify-center mb-5"
                   style={{ backgroundColor: C.lime, boxShadow: `0 0 40px rgba(219,230,76,0.4)` }}
-                  animate={{ scale: [1, 1.1, 1] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
                 >
                   <span style={{ fontSize: "28px" }}>✓</span>
-                </motion.div>
+                </div>
                 <h3 style={{ color: C.white, fontWeight: 900, fontSize: "20px", textAlign: "center" }}>
-                  Pesan Terkirim!
+                  Message Sent!
                 </h3>
                 <p style={{ color: "rgba(246,247,237,0.6)", fontSize: "12px", textAlign: "center", marginTop: "8px", lineHeight: 1.6 }}>
-                  Terima kasih telah menghubungi saya.
+                  Thank you for reaching out.
                   <br />
-                  Saya akan membalas dalam 24 jam.
+                  I will reply within 24 hours.
                 </p>
               </motion.div>
             ) : (
@@ -299,7 +287,7 @@ export default function Kontak() {
               >
                 <div>
                   <p className="uppercase mb-4" style={{ color: "rgba(246,247,237,0.4)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.12em" }}>
-                    KIRIM PESAN
+                    SEND MESSAGE
                   </p>
                 </div>
 
@@ -311,11 +299,11 @@ export default function Kontak() {
                     transition={{ delay: 0.35 }}
                   >
                     <label style={{ color: "rgba(246,247,237,0.5)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.08em", display: "block", marginBottom: "6px" }}>
-                      NAMA LENGKAP *
+                      FULL NAME *
                     </label>
                     <input
                       type="text"
-                      placeholder="Nama Anda"
+                      placeholder="Your name"
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
                       onFocus={() => setFocused("name")}
@@ -336,7 +324,7 @@ export default function Kontak() {
                     </label>
                     <input
                       type="email"
-                      placeholder="email@anda.com"
+                      placeholder="your@email.com"
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
                       onFocus={() => setFocused("email")}
@@ -350,11 +338,11 @@ export default function Kontak() {
                 {/* Subject */}
                 <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }}>
                   <label style={{ color: "rgba(246,247,237,0.5)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.08em", display: "block", marginBottom: "6px" }}>
-                    SUBJEK *
+                    SUBJECT *
                   </label>
                   <input
                     type="text"
-                    placeholder="Tentang apa yang ingin didiskusikan?"
+                    placeholder="What do you want to discuss?"
                     value={form.subject}
                     onChange={(e) => setForm({ ...form, subject: e.target.value })}
                     onFocus={() => setFocused("subject")}
@@ -367,7 +355,7 @@ export default function Kontak() {
                 {/* Budget */}
                 <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
                   <label style={{ color: "rgba(246,247,237,0.5)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.08em", display: "block", marginBottom: "6px" }}>
-                    ESTIMASI BUDGET
+                    BUDGET ESTIMATE
                   </label>
                   <select
                     value={form.budget}
@@ -376,22 +364,22 @@ export default function Kontak() {
                     onBlur={() => setFocused(null)}
                     style={{ ...fieldStyle("budget"), cursor: "pointer" }}
                   >
-                    <option value="" style={{ backgroundColor: C.midnight }}>Pilih range budget...</option>
-                    <option value="<5jt" style={{ backgroundColor: C.midnight }}>Di bawah Rp 5 juta</option>
-                    <option value="5-15jt" style={{ backgroundColor: C.midnight }}>Rp 5 – 15 juta</option>
-                    <option value="15-50jt" style={{ backgroundColor: C.midnight }}>Rp 15 – 50 juta</option>
-                    <option value=">50jt" style={{ backgroundColor: C.midnight }}>Di atas Rp 50 juta</option>
-                    <option value="diskusi" style={{ backgroundColor: C.midnight }}>Ingin didiskusikan</option>
+                    <option value="" style={{ backgroundColor: C.midnight }}>Select budget range...</option>
+                    <option value="<5jt" style={{ backgroundColor: C.midnight }}>Under Rp 5 million</option>
+                    <option value="5-15jt" style={{ backgroundColor: C.midnight }}>Rp 5 – 15 million</option>
+                    <option value="15-50jt" style={{ backgroundColor: C.midnight }}>Rp 15 – 50 million</option>
+                    <option value=">50jt" style={{ backgroundColor: C.midnight }}>Over Rp 50 million</option>
+                    <option value="diskusi" style={{ backgroundColor: C.midnight }}>To be discussed</option>
                   </select>
                 </motion.div>
 
                 {/* Message */}
                 <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55 }}>
                   <label style={{ color: "rgba(246,247,237,0.5)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.08em", display: "block", marginBottom: "6px" }}>
-                    PESAN *
+                    MESSAGE *
                   </label>
                   <textarea
-                    placeholder="Ceritakan tentang proyek Anda, tujuan yang ingin dicapai, timeline, dan detail lainnya..."
+                    placeholder="Tell me about your project, goals, timeline, and other details..."
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
                     onFocus={() => setFocused("message")}
@@ -434,7 +422,7 @@ export default function Kontak() {
                           animate={{ rotate: 360 }}
                           transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
                         />
-                        <span style={{ color: C.midnight, fontWeight: 800, fontSize: "11px" }}>Mengirim...</span>
+                        <span style={{ color: C.midnight, fontWeight: 800, fontSize: "11px" }}>Sending...</span>
                       </motion.div>
                     ) : (
                       <motion.div
@@ -445,7 +433,7 @@ export default function Kontak() {
                         exit={{ opacity: 0 }}
                       >
                         <span style={{ color: C.midnight, fontWeight: 900, fontSize: "11px", letterSpacing: "0.08em" }}>
-                          KIRIM PESAN
+                          SEND MESSAGE
                         </span>
                         <motion.span
                           style={{ color: C.midnight, fontSize: "14px" }}
@@ -460,7 +448,7 @@ export default function Kontak() {
                 </motion.button>
 
                 <p style={{ color: "rgba(246,247,237,0.3)", fontSize: "9px", textAlign: "center" }}>
-                  🔒 Data Anda aman dan tidak akan dibagikan kepada pihak ketiga
+                  🔒 Your data is secure and will not be shared with third parties
                 </p>
               </motion.form>
             )}

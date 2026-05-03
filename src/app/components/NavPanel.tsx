@@ -12,11 +12,11 @@ import {
 import LOGO from "../assets/logo.png";
 
 const navItems = [
-  { label: "TENTANG", sub: "About", Icon: UserRound, path: "/tentang" },
-  { label: "PENGALAMAN", sub: "Experience", Icon: BriefcaseBusiness, path: "/pengalaman" },
-  { label: "KARYA", sub: "Portfolio", Icon: Layers, path: "/karya" },
-  { label: "TESTIMONI", sub: "Testimonials", Icon: Star, path: "/testimoni" },
-  { label: "KONTAK", sub: "Contact", Icon: Mail, path: "/kontak" },
+  { label: "ABOUT", sub: "Me", Icon: UserRound, path: "/tentang" },
+  { label: "EXPERIENCE", sub: "History", Icon: BriefcaseBusiness, path: "/pengalaman" },
+  { label: "PORTFOLIO", sub: "Works", Icon: Layers, path: "/karya" },
+  { label: "TESTIMONI", sub: "Reviews", Icon: Star, path: "/testimoni" },
+  { label: "CONTACT", sub: "Connect", Icon: Mail, path: "/kontak" },
 ];
 
 interface NavPanelProps {
@@ -32,7 +32,9 @@ export function NavPanel({ open = true, onToggle }: NavPanelProps) {
       className="nav-panel flex flex-col h-full rounded-2xl relative"
       style={{
         width: "100%",
-        backgroundColor: C.midnight,
+        backgroundColor: "rgba(0, 31, 63, 0.4)",
+        backdropFilter: "blur(12px)",
+        WebkitBackdropFilter: "blur(12px)",
         border: `1px solid rgba(246,247,237,0.08)`,
         boxShadow: `0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(246,247,237,0.05)`,
         overflow: "hidden",
@@ -42,15 +44,14 @@ export function NavPanel({ open = true, onToggle }: NavPanelProps) {
       transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as const }}
     >
       {/* Glow accent */}
-      <motion.div
+      <div
         className="absolute top-0 right-0 w-24 h-24 rounded-full pointer-events-none"
-        style={{ background: C.lime, filter: "blur(40px)", transform: "translate(30%, -30%)", opacity: 0.08 }}
-        animate={{ opacity: [0.06, 0.12, 0.06], scale: [1, 1.2, 1] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+        style={{ background: `radial-gradient(circle, ${C.lime} 0%, transparent 70%)`, transform: "translate(30%, -30%)", opacity: 0.1 }}
       />
 
       {/* ── TOP: Logo ── */}
       <div
+        className="nav-panel-logo"
         style={{
           padding: "16px 12px 0 12px",
           display: "flex",
@@ -59,7 +60,8 @@ export function NavPanel({ open = true, onToggle }: NavPanelProps) {
           gap: 8,
         }}
       >
-        {/* YR logo — always centered */}
+        <NavLink to="/" style={{ textDecoration: 'none' }}>
+          {/* YR logo — always centered */}
         <motion.div
           className="rounded-xl flex items-center justify-center cursor-pointer flex-shrink-0"
           style={{ width: 40, height: 40, backgroundColor: C.lime }}
@@ -70,14 +72,16 @@ export function NavPanel({ open = true, onToggle }: NavPanelProps) {
           <img src={LOGO} alt="Logo" style={{ width: 22, height: 22, objectFit: "contain" }} />
         </motion.div>
 
+        </NavLink>
+
         {/* Subtitle — fade + collapse height */}
         <motion.div
           style={{ overflow: "hidden", textAlign: "center" }}
           animate={{ opacity: open ? 1 : 0, height: open ? "auto" : 0, marginBottom: open ? 0 : 0 }}
           transition={{ duration: 0.35, ease: "easeInOut" }}
         >
-          <p className="tracking-widest uppercase" style={{ color: C.lime, opacity: 0.85, fontSize: "9px" }}>PORTOFOLIO</p>
-          <p className="tracking-widest uppercase" style={{ color: C.white, opacity: 0.4, fontSize: "9px" }}>SAYA</p>
+          <p className="tracking-widest uppercase" style={{ color: C.lime, opacity: 0.85, fontSize: "9px" }}>MY</p>
+          <p className="tracking-widest uppercase" style={{ color: C.white, opacity: 0.4, fontSize: "9px" }}>PORTFOLIO</p>
         </motion.div>
       </div>
 
@@ -87,7 +91,7 @@ export function NavPanel({ open = true, onToggle }: NavPanelProps) {
       {/* ── MIDDLE: Nav items ── */}
       <nav className="flex flex-col flex-1" style={{ gap: 4, padding: "0 8px" }}>
         {navItems.map(({ label, sub, Icon, path }, i) => (
-          <NavLink key={label} to={path}>
+          <NavLink key={label} to={path} style={{ outline: 'none', WebkitTapHighlightColor: 'transparent' }}>
             {({ isActive }) => (
               <motion.div
                 className="rounded-xl flex items-center relative overflow-hidden cursor-pointer"
@@ -106,10 +110,6 @@ export function NavPanel({ open = true, onToggle }: NavPanelProps) {
                 transition={{ delay: 0.15 + i * 0.07, duration: 0.4 }}
                 whileHover={isActive ? {} : { backgroundColor: "rgba(246,247,237,0.05)" }}
                 title={!open ? label : undefined}
-                onClick={() => {
-                  if (!onToggle || typeof window === "undefined") return;
-                  if (window.innerWidth <= 767) onToggle();
-                }}
               >
                 {isActive && (
                   <div
@@ -182,18 +182,16 @@ export function NavPanel({ open = true, onToggle }: NavPanelProps) {
         <div className="flex items-center mt-3" style={{ justifyContent: "center", gap: 8, minHeight: 20 }}>
           {/* Status dot always visible */}
           <div className="flex items-center gap-1.5 flex-shrink-0">
-            <motion.span
+            <span
               className="w-1.5 h-1.5 rounded-full"
               style={{ backgroundColor: C.lime }}
-              animate={{ scale: [1, 1.5, 1], opacity: [1, 0.5, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
             />
             <motion.p
               animate={{ opacity: open ? 1 : 0, width: open ? "auto" : 0 }}
               transition={{ duration: 0.3 }}
               style={{ color: "rgba(246,247,237,0.3)", fontSize: "8px", whiteSpace: "nowrap", overflow: "hidden" }}
             >
-              Tersedia untuk proyek
+              Available for work
             </motion.p>
           </div>
 
@@ -210,7 +208,7 @@ export function NavPanel({ open = true, onToggle }: NavPanelProps) {
             }}
             whileHover={{ backgroundColor: "rgba(219,230,76,0.22)", scale: 1.1 }}
             whileTap={{ scale: 0.88 }}
-            title={open ? "Tutup panel" : "Buka panel"}
+            title={open ? "Close panel" : "Open panel"}
           >
             <motion.div
               animate={{ rotate: open ? 0 : 180 }}

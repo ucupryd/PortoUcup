@@ -3,25 +3,25 @@ import { C, containerVariants, itemVariants } from "../components/constants";
 
 const experiences = [
   {
-    year: "2025 — Sekarang",
+    year: "2025 — Present",
     role: "HMI, Apps & Website Developer",
     company: "PT. Reinutech Perbeja",
     location: "Semarang, Indonesia",
     type: "Intern",
     color: C.green,
-    desc: "Mengembangkan solusi IoT terintegrasi untuk smart farming: HMI berbasis Nextion untuk sistem kontrol iklim, aplikasi mobile Flutter untuk monitoring, dan platform web untuk peternakan ayam closed-house.",
-    achievements: ["HMI Nextion untuk Climate Control System", "Aplikasi Flutter sistem monitoring & pelaporan", "Platform web monitoring kandang ayam tertutup"],
+    desc: "Developed integrated IoT solutions for smart farming: Nextion-based HMI for climate control systems, Flutter mobile applications for monitoring, and web platforms for closed-house chicken farms.",
+    achievements: ["Nextion HMI for Climate Control System", "Flutter monitoring & reporting app", "Closed-house web monitoring platform"],
     tags: ["IoT", "HMI", "Flutter", "Web Dev"],
   },
   {
     year: "2022",
-    role: "Mekanik Alat Berat",
+    role: "Heavy Equipment Mechanic",
     company: "PT. BUMA",
     location: "Indonesia",
     type: "Intern",
     color: C.blue,
-    desc: "Bertanggung jawab atas inspeksi PPA, PPU, dan peralatan umum, perawatan unit Excavator, serta menyelesaikan Basic Mechanic Course (Power train, engine, electrical, pneumatic hydraulic, FOWAG).",
-    achievements: ["Inspeksi PPA, PPU, dan peralatan umum", "Maintenance unit Excavator", "Lulus Basic Mechanic Course"],
+    desc: "Responsible for inspection of PPA, PPU, and general equipment, maintenance of Excavator units, and completed the Basic Mechanic Course (Power train, engine, electrical, pneumatic hydraulic, FOWAG).",
+    achievements: ["PPA, PPU & general equipment inspection", "Excavator unit maintenance", "Graduated Basic Mechanic Course"],
     tags: ["Heavy Equipment", "Mechanical", "Electrical"],
   },
   {
@@ -31,8 +31,8 @@ const experiences = [
     location: "Semarang, Indonesia",
     type: "Intern",
     color: C.mantis,
-    desc: "Melaksanakan inspeksi properti harian, mengelola operasional fasilitas hotel, dan memperbaiki fasilitas yang rusak termasuk unit AC dan infrastruktur bangunan.",
-    achievements: ["Pengecekan harian seluruh fasilitas", "Perawatan preventif & korektif", "Perbaikan unit AC & fasilitas hotel"],
+    desc: "Conducted daily property inspections, managed hotel facility operations, and repaired damaged facilities including AC units and building infrastructure.",
+    achievements: ["Daily inspection of all facilities", "Preventive & corrective maintenance", "AC units & hotel facility repairs"],
     tags: ["Facility Maintenance", "Electrical", "HVAC"],
   },
 ];
@@ -40,23 +40,23 @@ const experiences = [
 const education = [
   {
     year: "2023 — Exp. 2027",
-    degree: "D4 Teknik Otomasi",
-    school: "Universitas Diponegoro",
-    gpa: "Aktif",
-    honors: "Beasiswa KSE",
+    degree: "B.A.Sc Automation Engineering",
+    school: "Diponegoro University",
+    gpa: "Active",
+    honors: "KSE Scholarship",
   },
   {
-    year: "2023 — Sekarang",
-    degree: "Kitab (Pesantren)",
+    year: "2023 — Present",
+    degree: "Islamic Studies",
     school: "Ponpes Kyai Galang Sewu",
     gpa: "—",
-    honors: "Aktif",
+    honors: "Active",
   },
   {
     year: "2020 — 2023",
-    degree: "Instalasi Tenaga Listrik",
+    degree: "Electrical Power Installation",
     school: "SMKN Jateng di Semarang",
-    gpa: "Terbaik",
+    gpa: "Top",
     honors: "Best Graduate",
   },
 ];
@@ -68,23 +68,19 @@ export default function Pengalaman() {
       <motion.div className="mb-6" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
         <div className="flex items-center gap-3 mb-1">
           <span style={{ color: C.lime, fontSize: "10px", fontWeight: 700, letterSpacing: "0.15em" }}>
-            02 — PENGALAMAN
+            02 — EXPERIENCE
           </span>
           <div className="flex-1 h-px" style={{ backgroundColor: "rgba(219,230,76,0.2)" }} />
         </div>
         <h1 className="uppercase" style={{ color: C.white, fontWeight: 900, fontSize: "clamp(22px, 3vw, 38px)", letterSpacing: "-0.02em" }}>
-          JEJAK{" "}
-          <motion.span
-            style={{ color: C.lime }}
-            animate={{ textShadow: [`0 0 20px rgba(219,230,76,0)`, `0 0 30px rgba(219,230,76,0.5)`, `0 0 20px rgba(219,230,76,0)`] }}
-            transition={{ duration: 3, repeat: Infinity }}
-          >
-            PROFESIONAL
-          </motion.span>
+          PROFESSIONAL{" "}
+          <span style={{ color: C.lime }}>
+            JOURNEY
+          </span>
         </h1>
       </motion.div>
 
-      <div className="grid gap-5" style={{ gridTemplateColumns: "1fr 320px" }}>
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_320px] gap-5">
         {/* Timeline */}
         <motion.div
           className="relative"
@@ -216,14 +212,14 @@ export default function Pengalaman() {
             variants={itemVariants}
           >
             <p className="uppercase mb-4" style={{ color: C.lime, fontSize: "9px", fontWeight: 700, letterSpacing: "0.12em" }}>
-              PENCAPAIAN
+              ACHIEVEMENTS
             </p>
             <div className="grid grid-cols-2 gap-3">
               {[
-                { num: "3+", label: "Pengalaman Magang" },
-                { num: "20+", label: "Proyek Selesai" },
-                { num: "7", label: "Penghargaan" },
-                { num: "5+", label: "Organisasi" },
+                { num: "3+", label: "Internships" },
+                { num: "20+", label: "Completed Projects" },
+                { num: "7", label: "Awards" },
+                { num: "5+", label: "Organizations" },
               ].map((stat, i) => (
                 <motion.div
                   key={stat.label}
@@ -247,7 +243,7 @@ export default function Pengalaman() {
             variants={itemVariants}
           >
             <p className="uppercase mb-4" style={{ color: "rgba(246,247,237,0.4)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.12em" }}>
-              PENDIDIKAN
+              EDUCATION
             </p>
             <div className="flex flex-col gap-3">
               {education.map((edu, i) => (
@@ -286,9 +282,9 @@ export default function Pengalaman() {
             whileHover={{ scale: 1.01 }}
           >
             <p className="uppercase mb-3" style={{ color: "rgba(246,247,237,0.5)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.12em" }}>
-              SERTIFIKASI
+              CERTIFICATIONS
             </p>
-            {["Kompetensi Keahlian - ESDM", "BIRU x KSE Scholarship Awardee", "Hak Kekayaan Intelektual (HKI)", "Basic Mechanic Course - PT. BUMA"].map((cert, i) => (
+            {["Skill Competency - ESDM", "BIRU x KSE Scholarship Awardee", "Intellectual Property Rights (HKI)", "Basic Mechanic Course - PT. BUMA"].map((cert, i) => (
               <motion.div
                 key={cert}
                 className="flex items-center gap-2.5 py-2"

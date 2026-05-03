@@ -6,10 +6,10 @@ import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import PROFILE_IMG from "../assets/profil.jpeg";
 
 const values = [
-  { Icon: Zap, title: "Inovasi", desc: "Selalu mengeksplorasi solusi baru di bidang IoT, otomasi, dan teknologi kontrol." },
-  { Icon: Target, title: "Presisi", desc: "Setiap sistem dan kode dibuat dengan ketelitian tinggi dan standar teknis." },
-  { Icon: Handshake, title: "Kolaborasi", desc: "Aktif di tim robotika, organisasi, dan proyek lintas disiplin." },
-  { Icon: TrendingUp, title: "Dampak", desc: "Fokus pada solusi nyata yang memberi manfaat dan kemudahan bagi pengguna." },
+  { Icon: Zap, title: "Innovation", desc: "Always exploring new solutions in IoT, automation, and control technology." },
+  { Icon: Target, title: "Precision", desc: "Every system and code is built with high accuracy and technical standards." },
+  { Icon: Handshake, title: "Collaboration", desc: "Active in robotics teams, organizations, and cross-disciplinary projects." },
+  { Icon: TrendingUp, title: "Impact", desc: "Focused on real solutions that provide benefits and convenience to users." },
 ];
 
 const tools = [
@@ -19,12 +19,12 @@ const tools = [
 ];
 
 const skills = [
-  { name: "IoT & Embedded Systems", level: 88 },
-  { name: "HMI Development (Nextion)", level: 85 },
-  { name: "Web & App Development", level: 82 },
-  { name: "PLC & Control Systems", level: 80 },
-  { name: "PCB Design (EasyEDA)", level: 78 },
-  { name: "Flutter Mobile Dev", level: 75 },
+  { name: "IoT & Embedded Systems", level: 3 },
+  { name: "HMI Development (Nextion)", level: 3 },
+  { name: "Web App Development", level: 3 },
+  { name: "PLC & Control Systems", level: 2 },
+  { name: "PCB Design (EasyEDA)", level: 2 },
+  { name: "Flutter Mobile Dev", level: 2 },
 ];
 
 export default function Tentang() {
@@ -44,7 +44,7 @@ export default function Tentang() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
           >
-            01 — TENTANG
+            01 — ABOUT
           </motion.span>
           <div className="flex-1 h-px" style={{ backgroundColor: "rgba(219,230,76,0.2)" }} />
         </div>
@@ -52,19 +52,15 @@ export default function Tentang() {
           className="uppercase"
           style={{ color: C.white, fontWeight: 900, fontSize: "clamp(22px, 3vw, 38px)", letterSpacing: "-0.02em" }}
         >
-          MENGENAL{" "}
-          <motion.span
-            style={{ color: C.lime }}
-            animate={{ textShadow: [`0 0 20px rgba(219,230,76,0)`, `0 0 30px rgba(219,230,76,0.5)`, `0 0 20px rgba(219,230,76,0)`] }}
-            transition={{ duration: 3, repeat: Infinity }}
-          >
-            LEBIH DEKAT
-          </motion.span>
+          GET TO KNOW{" "}
+          <span style={{ color: C.lime }}>
+            ME CLOSER
+          </span>
         </h1>
       </motion.div>
 
       {/* Main grid */}
-      <div className="grid gap-4" style={{ gridTemplateColumns: "1fr 1.5fr" }}>
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_1.5fr] gap-4">
         {/* Left column */}
         <motion.div
           className="flex flex-col gap-4"
@@ -89,15 +85,13 @@ export default function Tentang() {
               style={{ background: `linear-gradient(to top, ${C.blue}cc 0%, transparent 60%)` }}
             />
             <div className="absolute bottom-4 left-4 right-4">
-              <motion.div
+              <div
                 className="inline-flex items-center gap-2 rounded-full px-3 py-1.5 mb-2"
                 style={{ backgroundColor: "rgba(0,31,63,0.7)", backdropFilter: "blur(10px)", border: `1px solid rgba(219,230,76,0.2)` }}
-                animate={{ y: [0, -3, 0] }}
-                transition={{ duration: 4, repeat: Infinity }}
               >
                 <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: C.lime }} />
-                <span style={{ color: C.lime, fontSize: "9px", fontWeight: 600 }}>IoT & HMI Developer · Teknik Otomasi</span>
-              </motion.div>
+                <span style={{ color: C.lime, fontSize: "9px", fontWeight: 600 }}>IoT & HMI Developer · Automation</span>
+              </div>
               <p className="uppercase" style={{ color: C.white, fontWeight: 900, fontSize: "18px", letterSpacing: "0.04em" }}>
                 M. YUSUF RIYADI
               </p>
@@ -107,7 +101,7 @@ export default function Tentang() {
           {/* Values grid */}
           <motion.div variants={itemVariants}>
             <p className="uppercase mb-3" style={{ color: "rgba(246,247,237,0.4)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.12em" }}>
-              NILAI INTI
+              CORE VALUES
             </p>
             <div className="grid grid-cols-2 gap-2">
               {values.map((v, i) => (
@@ -146,28 +140,26 @@ export default function Tentang() {
             style={{ backgroundColor: C.green, boxShadow: `0 8px 32px rgba(0,128,76,0.2)` }}
             variants={itemVariants}
           >
-            <motion.div
+            <div
               className="absolute -top-8 -right-8 w-32 h-32 rounded-full pointer-events-none"
-              style={{ background: C.lime, filter: "blur(40px)", opacity: 0.08 }}
-              animate={{ scale: [1, 1.3, 1] }}
-              transition={{ duration: 7, repeat: Infinity }}
+              style={{ background: `radial-gradient(circle, ${C.lime} 0%, transparent 70%)`, opacity: 0.15 }}
             />
             <p className="uppercase mb-3" style={{ color: C.lime, fontSize: "9px", fontWeight: 700, letterSpacing: "0.15em" }}>
-              TENTANG SAYA
+              ABOUT ME
             </p>
             <p style={{ color: C.white, fontSize: "13px", lineHeight: 1.75, opacity: 0.9 }}>
-              Hai! Saya <strong style={{ color: C.lime }}>M. Yusuf Riyadi</strong>, mahasiswa aktif <strong style={{ color: C.white }}>Teknik Otomasi Undip</strong> dan
-              penerima beasiswa Karya Salemba Empat. Lulusan terbaik SMK Negeri Jawa Tengah
-              jurusan Instalasi Tenaga Listrik.
+              Hi! I'm <strong style={{ color: C.lime }}>M. Yusuf Riyadi</strong>, an active student of <strong style={{ color: C.white }}>Automation Engineering at Undip</strong> and
+              a recipient of the Karya Salemba Empat scholarship. Top graduate of SMK Negeri Jawa Tengah
+              majoring in Electrical Power Installation.
             </p>
             <p className="mt-3" style={{ color: C.white, fontSize: "13px", lineHeight: 1.75, opacity: 0.75 }}>
-              Pengalaman praktis dari magang sebagai mekanik alat berat di PT. BUMA,
-              engineer di Hotel MG Setos, dan HMI & Web Developer di PT. Perbeja Reinutech.
-              Kini aktif sebagai Electrical Expert Staff di tim Aterkia URDC Undip.
+              Practical experience from internships as a heavy equipment mechanic at PT. BUMA,
+              engineer at Hotel MG Setos, and HMI & Web Developer at PT. Perbeja Reinutech.
+              Currently active as Electrical Expert Staff in the Aterkia URDC Undip team.
             </p>
             <p className="mt-3" style={{ color: C.white, fontSize: "13px", lineHeight: 1.75, opacity: 0.6 }}>
-              Passion saya di sistem kontrol, IoT, embedded systems, dan pengembangan web
-              untuk menciptakan solusi teknologi yang nyata dan berdampak.
+              My passion lies in control systems, IoT, embedded systems, and web development
+              to create real and impactful technological solutions.
             </p>
           </motion.div>
 
@@ -178,23 +170,36 @@ export default function Tentang() {
             variants={itemVariants}
           >
             <p className="uppercase mb-4" style={{ color: "rgba(246,247,237,0.4)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.12em" }}>
-              TINGKAT KEAHLIAN
+              EXPERTISE LEVELS
             </p>
             <div className="flex flex-col gap-3">
               {skills.map((skill, i) => (
                 <div key={skill.name}>
                   <div className="flex justify-between mb-1.5">
                     <span style={{ color: C.white, fontSize: "11px", fontWeight: 600 }}>{skill.name}</span>
-                    <span style={{ color: C.lime, fontSize: "11px", fontWeight: 700 }}>{skill.level}%</span>
+                    <span style={{ color: C.lime, fontSize: "9px", fontWeight: 700 }}>
+                      {skill.level === 1 ? "Beginner" : skill.level === 2 ? "Intermediate" : skill.level === 3 ? "Advanced" : "Expert"}
+                    </span>
                   </div>
-                  <div className="h-1.5 rounded-full overflow-hidden" style={{ backgroundColor: "rgba(246,247,237,0.1)" }}>
-                    <motion.div
-                      className="h-full rounded-full"
-                      style={{ background: `linear-gradient(90deg, ${C.green}, ${C.lime})`, boxShadow: `0 0 10px rgba(219,230,76,0.4)` }}
-                      initial={{ width: 0 }}
-                      animate={{ width: `${skill.level}%` }}
-                      transition={{ delay: 0.6 + i * 0.1, duration: 1, ease: "easeOut" }}
-                    />
+                  <div className="flex gap-1 h-1.5">
+                    {[1, 2, 3, 4].map((levelIndex) => (
+                      <div
+                        key={levelIndex}
+                        className="flex-1 rounded-full overflow-hidden"
+                        style={{ backgroundColor: "rgba(246,247,237,0.1)" }}
+                      >
+                        <motion.div
+                          className="h-full rounded-full"
+                          style={{ 
+                             backgroundColor: skill.level >= levelIndex ? C.lime : "transparent",
+                             boxShadow: skill.level >= levelIndex ? `0 0 8px rgba(219,230,76,0.3)` : "none"
+                          }}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ delay: 0.6 + (i * 0.05) + (levelIndex * 0.1) }}
+                        />
+                      </div>
+                    ))}
                   </div>
                 </div>
               ))}
@@ -204,7 +209,7 @@ export default function Tentang() {
           {/* Tools */}
           <motion.div variants={itemVariants}>
             <p className="uppercase mb-3" style={{ color: "rgba(246,247,237,0.4)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.12em" }}>
-              TOOLS & TEKNOLOGI
+              TOOLS & TECHNOLOGY
             </p>
             <div className="flex flex-wrap gap-2">
               {tools.map((tool, i) => (

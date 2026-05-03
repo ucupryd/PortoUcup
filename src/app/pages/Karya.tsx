@@ -3,14 +3,14 @@ import { motion, AnimatePresence } from "motion/react";
 import { C, containerVariants, itemVariants } from "../components/constants";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 
-const categories = ["Semua", "IoT & Smart", "Web & App", "Robotika", "HMI"];
+const categories = ["All", "IoT & Smart", "Web & App", "Robotics", "HMI"];
 
 const projects = [
   {
     id: 1,
     title: "Web Monitoring Kandang Ayam",
     category: "IoT & Smart",
-    desc: "Platform web-based monitoring dan kontrol untuk peternakan ayam closed-house. Dikembangkan di PT. Reinutech Perbeja untuk manajemen terpusat dan otomasi.",
+    desc: "Web-based monitoring and control platform for closed-house chicken farms. Developed at PT. Reinutech Perbeja for centralized management and automation.",
     tags: ["IoT", "Web Dev", "Smart Farm"],
     year: "2026",
     img: "https://images.unsplash.com/photo-1720962158883-b0f2021fb51e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3ZWIlMjBkYXNoYm9hcmQlMjBkYXRhJTIwbW9uaXRvcmluZ3xlbnwxfHx8fDE3NzcyODc1Mzh8MA&ixlib=rb-4.1.0&q=80&w=1080",
@@ -21,7 +21,7 @@ const projects = [
     id: 2,
     title: "HMI Climate Control System",
     category: "HMI",
-    desc: "Human-Machine Interface berbasis Nextion untuk sistem kontrol iklim kandang ayam. Menampilkan data sensor real-time dan kontrol otomatis.",
+    desc: "Nextion-based Human-Machine Interface for chicken farm climate control systems. Displays real-time sensor data and automatic controls.",
     tags: ["Nextion", "HMI", "Climate Control"],
     year: "2025",
     img: "https://images.unsplash.com/photo-1759661966728-4a02e3c6ed91?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb250cm9sJTIwcGFuZWwlMjBpbmR1c3RyaWFsJTIwZGFzaGJvYXJkfGVufDF8fHx8MTc3NzI4NzU0NHww&ixlib=rb-4.1.0&q=80&w=1080",
@@ -32,7 +32,7 @@ const projects = [
     id: 3,
     title: "Flutter Monitoring App",
     category: "Web & App",
-    desc: "Aplikasi mobile berbasis Flutter untuk sistem monitoring dan pelaporan peternakan. Dikembangkan bersama platform IoT di PT. Reinutech Perbeja.",
+    desc: "Flutter-based mobile application for farm monitoring and reporting systems. Developed alongside IoT platforms at PT. Reinutech Perbeja.",
     tags: ["Flutter", "Mobile", "IoT"],
     year: "2025",
     img: "https://images.unsplash.com/photo-1767449181027-dbca7575f91b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2JpbGUlMjBhcHAlMjBkYXNoYm9hcmQlMjBtb25pdG9yaW5nfGVufDF8fHx8MTc3NzI4NzU0NHww&ixlib=rb-4.1.0&q=80&w=1080",
@@ -42,9 +42,9 @@ const projects = [
   {
     id: 4,
     title: "Autonomous Surface Vehicle (ASV)",
-    category: "Robotika",
-    desc: "Kapal permukaan otonom untuk Kontes Kapal Indonesia. Memenangkan Juara 1 Fun Race & Honorable Mention kategori Autonomous Surface Vessel.",
-    tags: ["Robotika", "Electrical", "PCB"],
+    category: "Robotics",
+    desc: "Autonomous surface vessel for the Indonesian Boat Contest. Won 1st Place in Fun Race & Honorable Mention in the Autonomous Surface Vessel category.",
+    tags: ["Robotics", "Electrical", "PCB"],
     year: "2025",
     img: "https://images.unsplash.com/photo-1758873272869-9130397ff7d2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyb2JvdCUyMGVsZWN0cm9uaWNzJTIwYm9hcmQlMjBlbmdpbmVlcmluZ3xlbnwxfHx8fDE3NzcyODc1NDJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
     color: "#7C3AED",
@@ -54,7 +54,7 @@ const projects = [
     id: 5,
     title: "Water Tank Control System",
     category: "IoT & Smart",
-    desc: "Sistem kontrol dan monitoring tangki air otomatis. Anggota tim elektrikal dalam pengembangan sistem manajemen distribusi air.",
+    desc: "Automatic water tank control and monitoring system. Served as electrical team member in developing water distribution management systems.",
     tags: ["PLC", "Control", "Monitoring"],
     year: "2025",
     img: "https://images.unsplash.com/photo-1760386129108-d17b9cdfc4fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpb3QlMjBzZW5zb3IlMjBlbGVjdHJvbmljJTIwYm9hcmR8ZW58MXx8fHwxNzc3MTgxNzI3fDA&ixlib=rb-4.1.0&q=80&w=1080",
@@ -65,8 +65,8 @@ const projects = [
     id: 6,
     title: "Program Auto Time Scheduling",
     category: "Web & App",
-    desc: "Program Automatic Time Scheduling Generator. Terdaftar sebagai Hak Kekayaan Intelektual (HKI/Copyright) pada tahun 2024.",
-    tags: ["Software", "HKI", "Scheduling"],
+    desc: "Automatic Time Scheduling Generator Program. Registered as Intellectual Property Rights (HKI/Copyright) in 2024.",
+    tags: ["Software", "Copyright", "Scheduling"],
     year: "2024",
     img: "https://images.unsplash.com/photo-1720962158883-b0f2021fb51e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3ZWIlMjBkZXZlbG9wbWVudCUyMGNvZGUlMjBkYXJrfGVufDF8fHx8MTc3NzI4NzUzOHww&ixlib=rb-4.1.0&q=80&w=600",
     color: C.mantisLight,
@@ -75,10 +75,10 @@ const projects = [
 ];
 
 export default function Karya() {
-  const [activeFilter, setActiveFilter] = useState("Semua");
+  const [activeFilter, setActiveFilter] = useState("All");
   const [hoveredId, setHoveredId] = useState<number | null>(null);
 
-  const filtered = activeFilter === "Semua"
+  const filtered = activeFilter === "All"
     ? projects
     : projects.filter((p) => p.category === activeFilter);
 
@@ -88,23 +88,21 @@ export default function Karya() {
       <motion.div className="mb-5" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
         <div className="flex items-center gap-3 mb-1">
           <span style={{ color: C.lime, fontSize: "10px", fontWeight: 700, letterSpacing: "0.15em" }}>
-            03 — KARYA
+            03 — WORKS
           </span>
           <div className="flex-1 h-px" style={{ backgroundColor: "rgba(219,230,76,0.2)" }} />
         </div>
         <div className="flex items-end justify-between">
           <h1 className="uppercase" style={{ color: C.white, fontWeight: 900, fontSize: "clamp(22px, 3vw, 38px)", letterSpacing: "-0.02em" }}>
-            PORTOFOLIO{" "}
+            PORTFOLIO{" "}
             <motion.span
               style={{ color: C.lime }}
-              animate={{ textShadow: [`0 0 20px rgba(219,230,76,0)`, `0 0 30px rgba(219,230,76,0.5)`, `0 0 20px rgba(219,230,76,0)`] }}
-              transition={{ duration: 3, repeat: Infinity }}
             >
-              KARYA
+              WORKS
             </motion.span>
           </h1>
           <p style={{ color: "rgba(246,247,237,0.4)", fontSize: "11px" }}>
-            {filtered.length} proyek ditampilkan
+            {filtered.length} projects displayed
           </p>
         </div>
       </motion.div>
@@ -139,8 +137,7 @@ export default function Karya() {
 
       {/* Projects grid */}
       <motion.div
-        className="grid gap-3"
-        style={{ gridTemplateColumns: "repeat(3, 1fr)" }}
+        className="grid grid-cols-2 md:grid-cols-3 gap-3"
         layout
       >
         <AnimatePresence mode="popLayout">
@@ -202,19 +199,19 @@ export default function Karya() {
               </div>
 
               {/* Content */}
-              <div className="absolute bottom-0 left-0 right-0 p-4">
-                <div className="flex gap-1.5 mb-2">
+              <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4">
+                <div className="flex flex-wrap gap-1 mb-2">
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-2 py-0.5 rounded-full"
-                      style={{ backgroundColor: "rgba(246,247,237,0.1)", color: "rgba(246,247,237,0.6)", fontSize: "8px", backdropFilter: "blur(10px)" }}
+                      className="px-1.5 md:px-2 py-0.5 rounded-full whitespace-nowrap"
+                      style={{ backgroundColor: "rgba(246,247,237,0.1)", color: "rgba(246,247,237,0.6)", fontSize: "7px", backdropFilter: "blur(10px)" }}
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
-                <h3 style={{ color: C.white, fontWeight: 800, fontSize: "14px" }}>{project.title}</h3>
+                <h3 className="line-clamp-2 leading-tight" style={{ color: C.white, fontWeight: 800, fontSize: "11px" }}>{project.title}</h3>
 
                 {/* Desc on hover */}
                 <motion.p
@@ -238,7 +235,7 @@ export default function Karya() {
                   transition={{ duration: 0.25, delay: 0.05 }}
                 >
                   <span style={{ color: project.color === C.lime ? C.midnight : C.lime, fontSize: "10px", fontWeight: 700 }}>
-                    Lihat Detail →
+                    View Details →
                   </span>
                 </motion.div>
               </div>

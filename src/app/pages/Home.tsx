@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { useNavigate } from "react-router";
 import { motion } from "motion/react";
 import {
@@ -7,10 +8,13 @@ import {
   Mail,
   Youtube,
   Wrench,
-  MessageSquare,
+  BriefcaseBusiness,
   Monitor,
   Smartphone,
   Target,
+  Zap,
+  Award,
+  Phone
 } from "lucide-react";
 import { C } from "../components/constants";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
@@ -18,16 +22,21 @@ import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import PROFILE_IMG from "../assets/profil.jpeg";
 // Background video for hero (place `home.mp4` in src/app/assets/)
 import BG_VIDEO from "../assets/home.mp4";
+
 const skills = [
-  { name: "IoT & Embedded Systems", level: 88 },
-  { name: "HMI Development (Nextion)", level: 85 },
-  { name: "Web & App Development", level: 82 },
-  { name: "PLC & Control Systems", level: 80 },
+  { name: "IoT & Embedded Systems", level: 3 },
+  { name: "HMI Development (Nextion)", level: 3 },
+  { name: "Web App Development", level: 3 },
+  { name: "PLC & Control Systems", level: 2 },
+  { name: "Microcontrollers", level: 3 },
+  { name: "React & Next.js", level: 2 },
+  { name: "Python / C++", level: 3 },
+  { name: "PCB Design", level: 2 },
 ];
 
-const testimonials = [
-  { text: "Sangat inovatif dalam mengintegrasikan IoT untuk sistem monitoring pertanian kami.", name: "PT. Reinutech Perbeja", role: "Supervisor Proyek", avatar: "R" },
-  { text: "Profesional dan berdedikasi tinggi dalam setiap tugas yang diberikan.", name: "URDC Undip", role: "Koordinator Aterkia", avatar: "U" },
+const experiences = [
+  { text: "Highly innovative in integrating IoT for our agricultural monitoring systems.", name: "PT. Reinutech Perbeja", role: "Project Supervisor", Icon: Zap },
+  { text: "Professional and highly dedicated in every assigned task.", name: "URDC Undip", role: "Aterkia Coordinator", Icon: Award },
 ];
 
 const socialLinks = [
@@ -56,6 +65,12 @@ const socialLinks = [
     className: "social-youtube",
   },
   {
+    Icon: Phone,
+    label: "WhatsApp",
+    href: "https://wa.me/6281234567890", // placeholder WhatsApp link
+    className: "social-whatsapp",
+  },
+  {
     Icon: Mail,
     label: "Email",
     href: "mailto:yusufriyadi141004@gmail.com",
@@ -63,14 +78,22 @@ const socialLinks = [
   },
 ];
 
+const ctaIcons = [Monitor, Smartphone, Target];
+
+const bentoItem = {
+  initial: { opacity: 0, scale: 0.94, y: 20 },
+  animate: { opacity: 1, scale: 1, y: 0 },
+};
+
 export default function Home() {
   const navigate = useNavigate();
+  const videoRef = useRef<HTMLVideoElement>(null);
 
-  const ctaIcons = [Monitor, Smartphone, Target];
-
-  const bentoItem = {
-    initial: { opacity: 0, scale: 0.94, y: 20 },
-    animate: { opacity: 1, scale: 1, y: 0 },
+  const handleVideoEnded = () => {
+    if (videoRef.current) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.play().catch(e => console.warn("Video play failed:", e));
+    }
   };
 
   return (
@@ -79,7 +102,7 @@ export default function Home() {
       style={{
         display: "grid",
         gridTemplateColumns: "1fr 1fr 1fr 1.1fr",
-        gridTemplateRows: "1fr 1fr 52px",
+        gridTemplateRows: "1.15fr 1fr 52px",
         gridTemplateAreas: `
           "hero hero hero hero"
           "profile skill1 skill2 cta"
@@ -99,19 +122,25 @@ export default function Home() {
         animate="animate"
         transition={{ duration: 0.6, delay: 0.05 }}
       >
-        {/* Background video (looping, muted) */}
+        {/* Background video (looping manually for performance, muted) */}
         <video
           key="hero-bg-video"
+          ref={videoRef}
           src={BG_VIDEO}
           autoPlay
           muted
-          loop
           playsInline
           preload="auto"
           aria-hidden
           tabIndex={-1}
+          onEnded={handleVideoEnded}
           className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-          style={{ zIndex: 0, opacity: 0.98 }}
+          style={{ 
+            zIndex: 0, 
+            opacity: 0.98,
+            transform: "translateZ(0)",
+            willChange: "transform"
+          }}
         />
         <div
           className="absolute inset-0 pointer-events-none"
@@ -130,11 +159,9 @@ export default function Home() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 }}
           >
-            <motion.span
+            <span
               className="w-1.5 h-1.5 rounded-full"
-              style={{ backgroundColor: C.lime }}
-              animate={{ scale: [1, 1.5, 1], opacity: [1, 0.5, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
+              style={{ backgroundColor: C.lime, opacity: 0.8 }}
             />
             <span className="text-xs tracking-wider" style={{ color: C.white, opacity: 0.85, fontSize: "10px" }}>
               OPEN TO WORK & COLLABORATION
@@ -169,34 +196,25 @@ export default function Home() {
           transition={{ delay: 0.25, duration: 0.7 }}
         >
           <h1
-            className="home-hero-title uppercase leading-none mb-2"
+            className="home-hero-title uppercase leading-none mb-3"
             style={{
               color: C.white,
-              fontSize: "clamp(28px, 3.2vw, 48px)",
+              fontSize: "clamp(32px, 3.8vw, 56px)",
               fontWeight: 900,
               letterSpacing: "-0.02em",
-              lineHeight: 1.04,
+              lineHeight: 1.1,
             }}
           >
-            M. YUSUF
-            <br />
-            <motion.span
-              style={{ color: C.lime, display: "inline-block" }}
-              animate={{ textShadow: [`0 0 20px rgba(219,230,76,0)`, `0 0 30px rgba(219,230,76,0.4)`, `0 0 20px rgba(219,230,76,0)`] }}
-              transition={{ duration: 3, repeat: Infinity }}
-            >
-              RIYADI
-            </motion.span>
+            M. YUSUF <span style={{ color: C.lime }}>RIYADI</span>
           </h1>
           <h1
             className="home-hero-subtitle uppercase leading-none"
             style={{
               color: C.white,
-              fontSize: "clamp(18px, 2.2vw, 32px)",
-              fontWeight: 900,
-              letterSpacing: "-0.01em",
-              lineHeight: 1.08,
-              opacity: 0.88,
+              fontSize: "clamp(16px, 1.8vw, 24px)",
+              fontWeight: 800,
+              letterSpacing: "0.05em",
+              opacity: 0.9,
             }}
           >
             IoT · HMI · WEB DEVELOPER
@@ -212,9 +230,9 @@ export default function Home() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
           >
-            Mahasiswa Teknik Otomasi Universitas Diponegoro.
+            Automation Engineering Student at Diponegoro University.
             <br />
-            Passionate di IoT, sistem kontrol, HMI & pengembangan web.
+            Passionate about IoT, control systems, HMI & web development.
           </motion.p>
           <motion.div
             className="home-hero-stats flex gap-6"
@@ -222,12 +240,12 @@ export default function Home() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.45, duration: 0.5 }}
           >
-            {[{ num: "20+", label: "Proyek" }, { num: "7+", label: "Penghargaan" }, { num: "3+", label: "Magang" }].map((stat) => (
-              <div key={stat.label} className="text-right">
-                <p style={{ color: C.lime, fontWeight: 900, fontSize: "clamp(18px, 2.0vw, 26px)", lineHeight: 1 }}>
+            {[{ num: "20+", label: "Projects" }, { num: "7+", label: "Awards" }, { num: "3+", label: "Internships" }].map((stat) => (
+              <div key={stat.label} className="text-right flex flex-col justify-end">
+                <p style={{ color: C.lime, fontWeight: 900, fontSize: "clamp(20px, 2.2vw, 28px)", lineHeight: 1 }}>
                   {stat.num}
                 </p>
-                <p style={{ color: "rgba(246,247,237,0.5)", fontSize: "9px", marginTop: "2px" }}>{stat.label}</p>
+                <p style={{ color: "rgba(246,247,237,0.6)", fontSize: "10px", marginTop: "4px", paddingBottom: "2px", lineHeight: 1.4 }}>{stat.label}</p>
               </div>
             ))}
           </motion.div>
@@ -264,7 +282,7 @@ export default function Home() {
           <p className="uppercase" style={{ color: C.white, fontWeight: 800, fontSize: "14px", letterSpacing: "0.05em" }}>
             M. YUSUF RIYADI
           </p>
-          <p style={{ color: "rgba(246,247,237,0.5)", fontSize: "9px" }}>Semarang, Jawa Tengah 🇮🇩</p>
+          <p style={{ color: "rgba(246,247,237,0.5)", fontSize: "9px" }}>Semarang, Central Java 🇮🇩</p>
         </div>
       </motion.div>
 
@@ -280,37 +298,56 @@ export default function Home() {
       >
         <div
           className="absolute -top-6 -right-6 w-20 h-20 rounded-full pointer-events-none"
-          style={{ background: C.lime, filter: "blur(20px)", opacity: 0.15 }}
+          style={{ background: `radial-gradient(circle, ${C.lime} 0%, transparent 70%)`, opacity: 0.25 }}
         />
-        <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center justify-between mb-3 flex-shrink-0">
           <div>
-            <p className="tracking-widest uppercase" style={{ color: C.lime, fontSize: "9px", fontWeight: 700 }}>KEAHLIAN</p>
-            <p className="tracking-widest uppercase" style={{ color: C.white, fontSize: "9px", opacity: 0.5 }}>UTAMA</p>
+            <p className="tracking-widest uppercase" style={{ color: C.lime, fontSize: "9px", fontWeight: 700 }}>MAIN SKILLS</p>
+            <p className="tracking-widest uppercase" style={{ color: C.white, fontSize: "9px", opacity: 0.5 }}>EXPERTISE</p>
           </div>
           <Wrench size={16} color={C.lime} />
         </div>
-        <div className="flex flex-col gap-2.5 flex-1 justify-center">
+        <div 
+          className="flex flex-col gap-3 overflow-y-auto pr-1 flex-1"
+          style={{
+             scrollbarWidth: "thin",
+             scrollbarColor: "rgba(219,230,76,0.3) transparent",
+          }}
+        >
           {skills.map((skill, i) => (
             <div key={skill.name}>
-              <div className="flex justify-between mb-1">
+              <div className="flex justify-between mb-1.5">
                 <span style={{ color: C.white, fontSize: "9px", fontWeight: 600 }}>{skill.name}</span>
-                <span style={{ color: C.lime, fontSize: "9px", fontWeight: 700 }}>{skill.level}%</span>
+                <span style={{ color: C.lime, fontSize: "8px", fontWeight: 700 }}>
+                  {skill.level === 1 ? "Beginner" : skill.level === 2 ? "Intermediate" : skill.level === 3 ? "Advanced" : "Expert"}
+                </span>
               </div>
-              <div className="h-1 rounded-full overflow-hidden" style={{ backgroundColor: "rgba(246,247,237,0.15)" }}>
-                <motion.div
-                  className="h-full rounded-full"
-                  style={{ backgroundColor: C.lime, boxShadow: `0 0 8px rgba(219,230,76,0.5)` }}
-                  initial={{ width: 0 }}
-                  animate={{ width: `${skill.level}%` }}
-                  transition={{ delay: 0.5 + i * 0.1, duration: 0.8, ease: "easeOut" }}
-                />
+              <div className="flex gap-1 h-1.5">
+                {[1, 2, 3, 4].map((levelIndex) => (
+                  <div
+                    key={levelIndex}
+                    className="flex-1 rounded-full overflow-hidden"
+                    style={{ backgroundColor: "rgba(246,247,237,0.1)" }}
+                  >
+                    <motion.div
+                      className="h-full rounded-full"
+                      style={{ 
+                         backgroundColor: skill.level >= levelIndex ? C.lime : "transparent",
+                         boxShadow: skill.level >= levelIndex ? `0 0 8px rgba(219,230,76,0.5)` : "none"
+                      }}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.3 + (i * 0.05) + (levelIndex * 0.1) }}
+                    />
+                  </div>
+                ))}
               </div>
             </div>
           ))}
         </div>
       </motion.div>
 
-      {/* ─── TESTIMONIALS PANEL ─── */}
+      {/* ─── EXPERIENCE PANEL ─── */}
       <motion.div
         className="home-panel home-skill2 rounded-2xl p-4 flex flex-col relative overflow-hidden"
         style={{ gridArea: "skill2", backgroundColor: C.mantisLight, boxShadow: `0 8px 32px rgba(46,125,94,0.2)` }}
@@ -322,40 +359,28 @@ export default function Home() {
       >
         <div
           className="absolute -bottom-4 -left-4 w-16 h-16 rounded-full pointer-events-none"
-          style={{ background: C.blue, filter: "blur(20px)", opacity: 0.2 }}
+          style={{ background: `radial-gradient(circle, ${C.blue} 0%, transparent 70%)`, opacity: 0.3 }}
         />
         <div className="flex items-center justify-between mb-3">
           <div>
-            <p className="tracking-widest uppercase" style={{ color: C.lime, fontSize: "9px", fontWeight: 700 }}>UMPAN BALIK</p>
-            <p className="tracking-widest uppercase" style={{ color: C.white, fontSize: "9px", opacity: 0.5 }}>KLIEN</p>
+            <p className="tracking-widest uppercase" style={{ color: C.lime, fontSize: "9px", fontWeight: 700 }}>EXPERIENCE</p>
+            <p className="tracking-widest uppercase" style={{ color: C.white, fontSize: "9px", opacity: 0.5 }}>HISTORY</p>
           </div>
-          <MessageSquare size={16} color={C.lime} />
+          <BriefcaseBusiness size={16} color={C.lime} />
         </div>
         <div className="flex flex-col gap-3 flex-1 justify-center">
-          {testimonials.map((t) => (
+          {experiences.map((exp) => (
             <div
-              key={t.name}
+              key={exp.name}
               className="rounded-xl p-3"
               style={{ backgroundColor: "rgba(0,31,63,0.25)", border: "1px solid rgba(246,247,237,0.08)" }}
             >
-              <div className="flex gap-0.5 mb-1.5">
-                {[1, 2, 3, 4, 5].map((s) => (
-                  <span key={s} style={{ fontSize: "8px" }}>⭐</span>
-                ))}
+              <div className="flex items-center gap-2 mb-1.5">
+                 <exp.Icon size={12} color={C.lime} />
+                 <p style={{ color: C.white, fontSize: "8px", fontWeight: 700 }}>{exp.name}</p>
               </div>
-              <p style={{ color: "rgba(246,247,237,0.8)", fontSize: "9px", lineHeight: 1.5 }}>"{t.text}"</p>
-              <div className="flex items-center gap-1.5 mt-2">
-                <div
-                  className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
-                  style={{ backgroundColor: C.lime }}
-                >
-                  <span style={{ color: C.midnight, fontSize: "8px", fontWeight: 800 }}>{t.avatar}</span>
-                </div>
-                <div>
-                  <p style={{ color: C.white, fontSize: "8px", fontWeight: 700 }}>{t.name}</p>
-                  <p style={{ color: "rgba(246,247,237,0.4)", fontSize: "7px" }}>{t.role}</p>
-                </div>
-              </div>
+              <p style={{ color: "rgba(246,247,237,0.8)", fontSize: "9px", lineHeight: 1.5 }}>"{exp.text}"</p>
+              <p style={{ color: "rgba(246,247,237,0.4)", fontSize: "7px", marginTop: "4px" }}>{exp.role}</p>
             </div>
           ))}
         </div>
@@ -369,26 +394,24 @@ export default function Home() {
         initial="initial"
         animate="animate"
         transition={{ duration: 0.6, delay: 0.38 }}
-        whileHover={{ scale: 1.02, boxShadow: `0 12px 50px rgba(219,230,76,0.45)` }}
+        whileHover={{ scale: 1.02, boxShadow: `0 8px 30px rgba(219,230,76,0.2)` }}
         onClick={() => navigate("/karya")}
       >
-        <motion.div
+        <div
           className="absolute top-0 right-0 w-32 h-32 rounded-full pointer-events-none"
-          style={{ background: "#fff", filter: "blur(30px)", transform: "translate(20%, -20%)", opacity: 0.15 }}
-          animate={{ scale: [1, 1.3, 1] }}
-          transition={{ duration: 6, repeat: Infinity }}
+          style={{ background: "radial-gradient(circle, #ffffff 0%, transparent 70%)", transform: "translate(20%, -20%)", opacity: 0.25 }}
         />
         <div>
           <p className="uppercase" style={{ color: C.midnight, fontWeight: 900, fontSize: "11px", letterSpacing: "0.08em", opacity: 0.5 }}>
-            PORTOFOLIO
+            PORTFOLIO
           </p>
           <h3
             className="uppercase leading-tight mt-1"
-            style={{ color: C.midnight, fontWeight: 900, fontSize: "clamp(16px, 1.8vw, 22px)", letterSpacing: "-0.01em" }}
+            style={{ color: C.white, fontWeight: 900, fontSize: "clamp(16px, 1.8vw, 22px)", letterSpacing: "-0.01em" }}
           >
-            LIHAT SEMUA
+            SEE ALL
             <br />
-            KARYA SAYA
+            MY WORKS
           </h3>
         </div>
         <div className="flex gap-1.5 my-3">
@@ -410,16 +433,14 @@ export default function Home() {
           whileTap={{ scale: 0.97 }}
         >
           <span className="uppercase tracking-widest" style={{ color: C.lime, fontWeight: 800, fontSize: "10px" }}>
-            JELAJAHI KARYA
+            EXPLORE WORKS
           </span>
-          <motion.span
-            className="w-7 h-7 rounded-lg flex items-center justify-center"
+          <span
+            className="w-7 h-7 rounded-lg flex items-center justify-center transition-transform"
             style={{ backgroundColor: C.lime }}
-            animate={{ x: [0, 3, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
           >
             <span style={{ color: C.midnight, fontSize: "12px" }}>→</span>
-          </motion.span>
+          </span>
         </motion.button>
       </motion.div>
 
@@ -453,16 +474,14 @@ export default function Home() {
           ))}
         </div>
         <div className="flex items-center gap-3">
-          <span style={{ color: "rgba(246,247,237,0.3)", fontSize: "9px" }}>Dibuat dengan ❤️ di Semarang</span>
+          <span style={{ color: "rgba(246,247,237,0.3)", fontSize: "9px" }}>Made with ❤️ in Semarang</span>
           <div
             className="flex items-center gap-1 px-2 py-1 rounded-full"
             style={{ backgroundColor: "rgba(219,230,76,0.1)", border: "1px solid rgba(219,230,76,0.2)" }}
           >
-            <motion.span
+            <span
               className="w-1.5 h-1.5 rounded-full"
-              style={{ backgroundColor: C.lime }}
-              animate={{ scale: [1, 1.5, 1], opacity: [1, 0.5, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
+              style={{ backgroundColor: C.lime, opacity: 0.8 }}
             />
             <span style={{ color: C.lime, fontSize: "8px" }}>Open to Work</span>
           </div>
