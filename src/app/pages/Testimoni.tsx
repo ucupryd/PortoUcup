@@ -98,7 +98,7 @@ export default function Testimoni() {
   const featuredTestimonial = testimonials[featured];
 
   return (
-    <div className="h-full p-1 pb-6">
+    <div className="h-full p-1 pb-6 overflow-y-auto custom-scrollbar">
       {/* Header */}
       <motion.div className="mb-5" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
         <div className="flex items-center gap-3 mb-1">
@@ -121,7 +121,7 @@ export default function Testimoni() {
 
       {/* Stats row */}
       <motion.div
-        className="grid grid-cols-4 gap-3 mb-5"
+        className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5"
         variants={containerVariants}
         initial="initial"
         animate="animate"
@@ -149,7 +149,7 @@ export default function Testimoni() {
         ))}
       </motion.div>
 
-      <div className="grid gap-4" style={{ gridTemplateColumns: "1.4fr 1fr" }}>
+      <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-6 lg:gap-4 mt-2">
         {/* Featured testimonial */}
         <motion.div
           className="flex flex-col gap-4"
@@ -160,7 +160,7 @@ export default function Testimoni() {
           <AnimatePresence mode="wait">
             <motion.div
               key={featured}
-              className="rounded-2xl p-7 relative overflow-hidden flex-1"
+              className="rounded-2xl p-7 relative overflow-hidden flex-1 flex flex-col justify-center"
               style={{
                 backgroundColor: featuredTestimonial.color === C.lime ? C.mantis : featuredTestimonial.color,
                 boxShadow: `0 12px 40px ${featuredTestimonial.color}33`,
@@ -204,23 +204,25 @@ export default function Testimoni() {
                 "{featuredTestimonial.text}"
               </p>
 
-              <div className="flex items-center gap-3 mt-5">
-                <motion.div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                  style={{ backgroundColor: C.lime, boxShadow: `0 4px 12px rgba(219,230,76,0.3)` }}
-                  whileHover={{ rotate: 5 }}
-                >
-                  <span style={{ color: C.midnight, fontWeight: 900, fontSize: "16px" }}>{featuredTestimonial.avatar}</span>
-                </motion.div>
-                <div>
-                  <p style={{ color: C.white, fontWeight: 800, fontSize: "13px" }}>{featuredTestimonial.name}</p>
-                  <p style={{ color: "rgba(246,247,237,0.6)", fontSize: "10px" }}>
-                    {featuredTestimonial.role}, {featuredTestimonial.company}
-                  </p>
+              <div className="flex flex-wrap items-center justify-between gap-3 mt-5">
+                <div className="flex items-center gap-3">
+                  <motion.div
+                    className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                    style={{ backgroundColor: C.lime, boxShadow: `0 4px 12px rgba(219,230,76,0.3)` }}
+                    whileHover={{ rotate: 5 }}
+                  >
+                    <span style={{ color: C.midnight, fontWeight: 900, fontSize: "16px" }}>{featuredTestimonial.avatar}</span>
+                  </motion.div>
+                  <div>
+                    <p style={{ color: C.white, fontWeight: 800, fontSize: "13px" }}>{featuredTestimonial.name}</p>
+                    <p style={{ color: "rgba(246,247,237,0.6)", fontSize: "10px" }}>
+                      {featuredTestimonial.role}, {featuredTestimonial.company}
+                    </p>
+                  </div>
                 </div>
-                <div className="ml-auto text-right">
+                <div className="ml-auto flex-shrink-0">
                   <span
-                    className="px-2.5 py-1 rounded-full"
+                    className="px-2.5 py-1 rounded-full whitespace-nowrap inline-block mt-2 sm:mt-0"
                     style={{ backgroundColor: "rgba(0,31,63,0.25)", color: C.lime, fontSize: "8px", fontWeight: 700 }}
                   >
                     {featuredTestimonial.project}
@@ -251,7 +253,7 @@ export default function Testimoni() {
 
         {/* Testimonial list */}
         <motion.div
-          className="flex flex-col gap-3"
+          className="flex flex-col gap-3 lg:overflow-y-auto lg:pr-2 lg:pb-2 lg:max-h-[380px] custom-scrollbar"
           variants={containerVariants}
           initial="initial"
           animate="animate"

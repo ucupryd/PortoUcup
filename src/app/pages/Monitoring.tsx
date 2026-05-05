@@ -1,15 +1,27 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { Thermometer, Droplets, Cpu, Zap, Activity } from 'lucide-react';
+import { Thermometer, Droplets, Cpu, Zap, Activity, Play, Square } from 'lucide-react';
 import { C, pageVariants } from '../components/constants';
+import mqtt from 'mqtt';
 
-// Dummy data for charts
-const generateData = () => {
+interface SensorData {
+  suhu_inti: number;
+  kelembapan: number;
+  beban_cpu: number;
+  tegangan: number;
+  load: number;
+  memory: number;
+  temp: number;
+  network: number;
+}
+
+// Dummy data for charts initial state
+const generateInitialData = () => {
   return Array.from({ length: 15 }).map((_, i) => ({
     time: `10:${i.toString().padStart(2, '0')}`,
-    suhu: 20 + Math.random() * 15,
-    beban: 40 + Math.random() * 50,
+    suhu: 0,
+    beban: 0,
   }));
 };
 
@@ -59,26 +71,108 @@ const Gauge = ({ value, label, color, unit }: { value: number, label: string, co
 };
 
 export default function Monitoring() {
-  const [data, setData] = useState(generateData());
+  const [chartData, setChartData] = useState(generateInitialData());
+  const [sensorData, setSensorData] = useState<SensorData>({
+    suhu_inti: 0,
+    kelembapan: 0,
+    beban_cpu: 0,
+    tegangan: 0,
+    load: 0,
+    memory: 0,
+    temp: 0,
+    network: 0
+  });
+  
+  const [isSimulating, setIsSimulating] = useState(false);
+  const [isConnected, setIsConnected] = useState(false);
+  const clientRef = useRef<mqtt.MqttClient | null>(null);
 
   useEffect(() => {
-    // Simulate real-time updates
-    const interval = setInterval(() => {
-      setData(prev => {
-        const newData = [...prev.slice(1)];
-        const lastTime = prev[prev.length - 1].time;
-        const [h, m] = lastTime.split(':').map(Number);
-        const nextM = (m + 1) % 60;
-        newData.push({
-          time: `${h}:${nextM.toString().padStart(2, '0')}`,
-          suhu: 20 + Math.random() * 15,
-          beban: 40 + Math.random() * 50,
-        });
-        return newData;
+    // Connect to MQTT broker
+    const client = mqtt.connect('wss://nee81eaa.ala.eu-central-1.emqxsl.com:8084/mqtt', {
+      username: 'ucupryd',
+      password: 'Ucup7($_$)',
+    });
+
+    clientRef.current = client;
+
+    client.on('connect', () => {
+      console.log('Connected to MQTT Broker');
+      setIsConnected(true);
+      client.subscribe('mekatro/monitoring/sensor', (err) => {
+        if (!err) {
+          console.log('Subscribed to mekatro/monitoring/sensor');
+        }
       });
-    }, 3000);
-    return () => clearInterval(interval);
+    });
+
+    client.on('message', (topic, message) => {
+      if (topic === 'mekatro/monitoring/sensor') {
+        try {
+          const payload = JSON.parse(message.toString());
+          setSensorData(payload);
+          
+          // Update chart data
+          setChartData(prev => {
+            const newData = [...prev.slice(1)];
+            const now = new Date();
+            newData.push({
+              time: `${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`,
+              suhu: payload.suhu_inti,
+              beban: payload.beban_cpu,
+            });
+            return newData;
+          });
+        } catch (error) {
+          console.error('Failed to parse MQTT message:', error);
+        }
+      }
+    });
+
+    client.on('error', (err) => {
+      console.error('MQTT connection error:', err);
+      setIsConnected(false);
+    });
+
+    client.on('close', () => {
+      setIsConnected(false);
+    });
+
+    return () => {
+      if (clientRef.current) {
+        clientRef.current.end();
+      }
+    };
   }, []);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    
+    if (isSimulating) {
+      interval = setInterval(() => {
+        const fakeData: SensorData = {
+          suhu_inti: Math.floor(20 + Math.random() * 20),
+          kelembapan: Math.floor(40 + Math.random() * 40),
+          beban_cpu: Math.floor(10 + Math.random() * 80),
+          tegangan: Math.floor(215 + Math.random() * 15),
+          load: Math.floor(20 + Math.random() * 70),
+          memory: Math.floor(50 + Math.random() * 40),
+          temp: Math.floor(20 + Math.random() * 15),
+          network: Math.floor(60 + Math.random() * 40),
+        };
+        
+        if (clientRef.current && isConnected) {
+          clientRef.current.publish('mekatro/monitoring/sensor', JSON.stringify(fakeData));
+        }
+      }, 2000);
+    }
+    
+    return () => clearInterval(interval);
+  }, [isSimulating, isConnected]);
+
+  const toggleSimulation = () => {
+    setIsSimulating(!isSimulating);
+  };
 
   return (
     <motion.div
@@ -96,19 +190,34 @@ export default function Monitoring() {
             </h1>
             <p className="text-sm mt-1" style={{ color: 'rgba(246,247,237,0.5)' }}>Pemantauan Status Perangkat Real-time</p>
           </div>
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/10 border border-green-500/20">
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            <span className="text-xs font-medium text-green-400">ONLINE</span>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={toggleSimulation}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-pointer ${
+                isSimulating 
+                  ? 'bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20' 
+                  : 'bg-[rgba(246,247,237,0.05)] text-white border border-[rgba(246,247,237,0.1)] hover:bg-[rgba(246,247,237,0.1)]'
+              }`}
+            >
+              {isSimulating ? <Square size={16} /> : <Play size={16} />}
+              {isSimulating ? 'Stop Simulation' : 'Start Simulation'}
+            </button>
+            <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full border ${isConnected ? 'bg-green-500/10 border-green-500/20' : 'bg-red-500/10 border-red-500/20'}`}>
+              <span className={`w-2 h-2 rounded-full ${isConnected ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`} />
+              <span className={`text-xs font-medium ${isConnected ? 'text-green-400' : 'text-red-400'}`}>
+                {isConnected ? 'ONLINE' : 'OFFLINE'}
+              </span>
+            </div>
           </div>
         </div>
 
         {/* Top Indicators - Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
-            { label: 'Suhu Inti', value: '34°C', icon: Thermometer, color: '#f87171' },
-            { label: 'Kelembapan', value: '62%', icon: Droplets, color: '#60a5fa' },
-            { label: 'Beban CPU', value: '45%', icon: Cpu, color: C.lime },
-            { label: 'Tegangan', value: '220V', icon: Zap, color: '#fbbf24' },
+            { label: 'Suhu Inti', value: `${sensorData.suhu_inti}°C`, icon: Thermometer, color: '#f87171' },
+            { label: 'Kelembapan', value: `${sensorData.kelembapan}%`, icon: Droplets, color: '#60a5fa' },
+            { label: 'Beban CPU', value: `${sensorData.beban_cpu}%`, icon: Cpu, color: C.lime },
+            { label: 'Tegangan', value: `${sensorData.tegangan}V`, icon: Zap, color: '#fbbf24' },
           ].map((item, i) => (
             <motion.div 
               key={item.label}
@@ -143,7 +252,7 @@ export default function Monitoring() {
             <h2 className="text-lg font-semibold text-white mb-6">Tren Parameter</h2>
             <div className="h-72 w-full">
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={data}>
+                <LineChart data={chartData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(246,247,237,0.1)" vertical={false} />
                   <XAxis dataKey="time" stroke="rgba(246,247,237,0.3)" fontSize={12} tickLine={false} />
                   <YAxis stroke="rgba(246,247,237,0.3)" fontSize={12} tickLine={false} axisLine={false} />
@@ -168,10 +277,10 @@ export default function Monitoring() {
           >
             <h2 className="text-lg font-semibold text-white mb-6">Kapasitas Sistem</h2>
             <div className="grid grid-cols-2 gap-4">
-              <Gauge value={data[data.length-1].beban} label="Load" color={C.lime} unit="%" />
-              <Gauge value={78} label="Memory" color="#60a5fa" unit="%" />
-              <Gauge value={data[data.length-1].suhu} label="Temp" color="#f87171" unit="°C" />
-              <Gauge value={92} label="Network" color="#fbbf24" unit="%" />
+              <Gauge value={sensorData.load} label="Load" color={C.lime} unit="%" />
+              <Gauge value={sensorData.memory} label="Memory" color="#60a5fa" unit="%" />
+              <Gauge value={sensorData.temp} label="Temp" color="#f87171" unit="°C" />
+              <Gauge value={sensorData.network} label="Network" color="#fbbf24" unit="%" />
             </div>
           </motion.div>
 
