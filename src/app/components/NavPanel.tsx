@@ -13,6 +13,7 @@ import {
   Mail,
   ChevronLeft,
   Activity,
+  Camera,
   LogOut,
   LogIn
 } from "lucide-react";
@@ -49,7 +50,10 @@ export function NavPanel({ open = true, onToggle }: NavPanelProps) {
 
   const dynamicNavItems = [...navItems];
   if (session) {
-    dynamicNavItems.push({ label: "MONITORING", sub: "Dashboard", Icon: Activity, path: "/monitoring" });
+    dynamicNavItems.push(
+      { label: "MONITORING", sub: "Dashboard", Icon: Activity, path: "/monitoring" },
+      { label: "CCTV", sub: "Monitoring", Icon: Camera, path: "/cctv-monitoring" }
+    );
   }
 
   return (

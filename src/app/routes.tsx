@@ -7,6 +7,7 @@ import Karya from "./pages/Karya";
 import Testimoni from "./pages/Testimoni";
 import Kontak from "./pages/Kontak";
 import Monitoring from "./pages/Monitoring";
+import CctvMonitoring from "./pages/CctvMonitoring";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 
 export const router = createBrowserRouter([
@@ -25,6 +26,14 @@ export const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Monitoring />
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: "cctv-monitoring",
+        element: (
+          <ProtectedRoute>
+            <CctvMonitoring />
           </ProtectedRoute>
         )
       },
