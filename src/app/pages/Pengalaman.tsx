@@ -1,67 +1,42 @@
+import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { C, containerVariants, itemVariants } from "../components/constants";
-
-const experiences = [
-  {
-    year: "2025 — Present",
-    role: "HMI, Apps & Website Developer",
-    company: "PT. Reinutech Perbeja",
-    location: "Semarang, Indonesia",
-    type: "Intern",
-    color: C.green,
-    desc: "Developed integrated IoT solutions for smart farming: Nextion-based HMI for climate control systems, Flutter mobile applications for monitoring, and web platforms for closed-house chicken farms.",
-    achievements: ["Nextion HMI for Climate Control System", "Flutter monitoring & reporting app", "Closed-house web monitoring platform"],
-    tags: ["IoT", "HMI", "Flutter", "Web Dev"],
-  },
-  {
-    year: "2022",
-    role: "Heavy Equipment Mechanic",
-    company: "PT. BUMA",
-    location: "Indonesia",
-    type: "Intern",
-    color: C.blue,
-    desc: "Responsible for inspection of PPA, PPU, and general equipment, maintenance of Excavator units, and completed the Basic Mechanic Course (Power train, engine, electrical, pneumatic hydraulic, FOWAG).",
-    achievements: ["PPA, PPU & general equipment inspection", "Excavator unit maintenance", "Graduated Basic Mechanic Course"],
-    tags: ["Heavy Equipment", "Mechanical", "Electrical"],
-  },
-  {
-    year: "2022",
-    role: "Engineering",
-    company: "Hotel MG Suite",
-    location: "Semarang, Indonesia",
-    type: "Intern",
-    color: C.mantis,
-    desc: "Conducted daily property inspections, managed hotel facility operations, and repaired damaged facilities including AC units and building infrastructure.",
-    achievements: ["Daily inspection of all facilities", "Preventive & corrective maintenance", "AC units & hotel facility repairs"],
-    tags: ["Facility Maintenance", "Electrical", "HVAC"],
-  },
-];
-
-const education = [
-  {
-    year: "2023 — Exp. 2027",
-    degree: "B.A.Sc Automation Engineering",
-    school: "Diponegoro University",
-    gpa: "Active",
-    honors: "KSE Scholarship",
-  },
-  {
-    year: "2023 — Present",
-    degree: "Islamic Studies",
-    school: "Ponpes Kyai Galang Sewu",
-    gpa: "—",
-    honors: "Active",
-  },
-  {
-    year: "2020 — 2023",
-    degree: "Electrical Power Installation",
-    school: "SMKN Jateng di Semarang",
-    gpa: "Top",
-    honors: "Best Graduate",
-  },
-];
+import { portfolioData, ExperienceData, OrganizationData, EducationData, AchievementData } from "../data/portfolioData";
+import { fetchPublishedExperiences, fetchPublishedEducation, fetchPublishedAchievements } from "../../lib/contentService";
+import { Award, Briefcase, Users, GraduationCap, CheckCircle2 } from "lucide-react";
 
 export default function Pengalaman() {
+  const [experiences, setExperiences] = useState<ExperienceData[]>(portfolioData.experiences);
+  const [organizations, setOrganizations] = useState<OrganizationData[]>(portfolioData.organizations);
+  const [education, setEducation] = useState<EducationData[]>(portfolioData.education);
+  const [achievements, setAchievements] = useState<AchievementData[]>(portfolioData.achievements);
+  const certificationsSidebar = portfolioData.certificationsSidebar;
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadContent() {
+      const [expResult, fetchedEducation, fetchedAchievements] = await Promise.all([
+        fetchPublishedExperiences(),
+        fetchPublishedEducation(),
+        fetchPublishedAchievements(),
+      ]);
+
+      if (isMounted) {
+        setExperiences(expResult.experiences);
+        setOrganizations(expResult.organizations);
+        setEducation(fetchedEducation);
+        setAchievements(fetchedAchievements);
+      }
+    }
+
+    loadContent();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   return (
     <div className="h-full p-1 pb-6">
       {/* Header */}
@@ -73,130 +48,248 @@ export default function Pengalaman() {
           <div className="flex-1 h-px" style={{ backgroundColor: "rgba(219,230,76,0.2)" }} />
         </div>
         <h1 className="uppercase" style={{ color: C.white, fontWeight: 900, fontSize: "clamp(22px, 3vw, 38px)", letterSpacing: "-0.02em" }}>
-          PROFESSIONAL{" "}
+          PROFESSIONAL &{" "}
           <span style={{ color: C.lime }}>
-            JOURNEY
+            ORGANIZATIONAL JOURNEY
           </span>
         </h1>
       </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-[1fr_320px] gap-5">
-        {/* Timeline */}
+        {/* Main Content (Professional & Organizational Timeline) */}
         <motion.div
-          className="relative"
+          className="flex flex-col gap-8"
           variants={containerVariants}
           initial="initial"
           animate="animate"
         >
-          {/* Timeline line */}
-          <motion.div
-            className="absolute left-5 top-0 bottom-0 w-px"
-            style={{ backgroundColor: "rgba(246,247,237,0.1)" }}
-            initial={{ scaleY: 0, originY: 0 }}
-            animate={{ scaleY: 1 }}
-            transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
-          />
+          {/* SECTION 1: PROFESSIONAL EXPERIENCE */}
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <Briefcase size={16} color={C.lime} />
+              <h2 className="uppercase" style={{ color: C.white, fontWeight: 800, fontSize: "16px", letterSpacing: "0.05em" }}>
+                PROFESSIONAL EXPERIENCE
+              </h2>
+            </div>
 
-          <div className="flex flex-col gap-4">
-            {experiences.map((exp, i) => (
+            <div className="relative">
+              {/* Timeline line */}
               <motion.div
-                key={exp.company}
-                className="relative pl-14"
-                variants={itemVariants}
-                custom={i}
-              >
-                {/* Timeline dot */}
-                <motion.div
-                  className="absolute left-0 w-10 h-10 rounded-xl flex items-center justify-center"
-                  style={{
-                    backgroundColor: exp.color,
-                    boxShadow: `0 0 20px ${exp.color}44`,
-                    top: "8px",
-                  }}
-                  initial={{ scale: 0, rotate: -20 }}
-                  animate={{ scale: 1, rotate: 0 }}
-                  transition={{ delay: 0.3 + i * 0.12, type: "spring", stiffness: 200 }}
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                >
-                  <span style={{ fontSize: "14px" }}>
-                    {i === 0 ? "👑" : i === 1 ? "⚡" : i === 2 ? "🎨" : "🌱"}
-                  </span>
-                </motion.div>
+                className="absolute left-5 top-0 bottom-0 w-px"
+                style={{ backgroundColor: "rgba(246,247,237,0.1)" }}
+                initial={{ scaleY: 0, originY: 0 }}
+                animate={{ scaleY: 1 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+              />
 
-                {/* Card */}
+              <div className="flex flex-col gap-4">
+                {experiences.map((exp, i) => {
+                  const cardColor = exp.color || C.green;
+                  return (
+                    <motion.div
+                      key={exp.company}
+                      className="relative pl-14"
+                      variants={itemVariants}
+                      custom={i}
+                    >
+                      {/* Timeline dot */}
+                      <motion.div
+                        className="absolute left-0 w-10 h-10 rounded-xl flex items-center justify-center"
+                        style={{
+                          backgroundColor: cardColor,
+                          boxShadow: `0 0 20px ${cardColor}44`,
+                          top: "8px",
+                        }}
+                        initial={{ scale: 0, rotate: -20 }}
+                        animate={{ scale: 1, rotate: 0 }}
+                        transition={{ delay: 0.2 + i * 0.1, type: "spring", stiffness: 200 }}
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                      >
+                        <span style={{ fontSize: "14px" }}>
+                          {i === 0 ? "⚡" : i === 1 ? "🔧" : "🏢"}
+                        </span>
+                      </motion.div>
+
+                      {/* Card */}
+                      <motion.div
+                        className="rounded-2xl p-5 relative overflow-hidden"
+                        style={{
+                          backgroundColor: "rgba(246,247,237,0.04)",
+                          border: `1px solid rgba(246,247,237,0.07)`,
+                        }}
+                        whileHover={{
+                          backgroundColor: "rgba(246,247,237,0.06)",
+                          borderColor: `${cardColor}44`,
+                          y: -2,
+                        }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <div
+                          className="absolute left-0 top-0 bottom-0 w-1 rounded-l-2xl"
+                          style={{ backgroundColor: cardColor }}
+                        />
+
+                        <div className="flex items-start justify-between mb-2">
+                          <div>
+                            <p style={{ color: cardColor, fontSize: "9px", fontWeight: 700, letterSpacing: "0.1em" }}>
+                              {exp.year}
+                            </p>
+                            <h3 className="mt-0.5" style={{ color: C.white, fontWeight: 800, fontSize: "14px" }}>
+                              {exp.role}
+                            </h3>
+                            <p style={{ color: "rgba(246,247,237,0.5)", fontSize: "11px" }}>
+                              {exp.company} · {exp.location}
+                            </p>
+                          </div>
+                          <span
+                            className="px-2.5 py-1 rounded-full"
+                            style={{ backgroundColor: `${cardColor}22`, color: cardColor, fontSize: "9px", fontWeight: 600 }}
+                          >
+                            {exp.type}
+                          </span>
+                        </div>
+
+                        <p className="mb-3" style={{ color: "rgba(246,247,237,0.65)", fontSize: "12px", lineHeight: 1.65 }}>
+                          {exp.desc}
+                        </p>
+
+                        <div className="flex flex-col gap-1.5 mb-3">
+                          {exp.achievements.map((a) => (
+                            <div key={a} className="flex items-start gap-2">
+                              <span style={{ color: C.lime, fontSize: "10px", marginTop: "2px" }}>✦</span>
+                              <span style={{ color: "rgba(246,247,237,0.75)", fontSize: "11px" }}>{a}</span>
+                            </div>
+                          ))}
+                        </div>
+
+                        <div className="flex flex-wrap gap-1.5">
+                          {exp.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="px-2.5 py-1 rounded-full"
+                              style={{
+                                backgroundColor: "rgba(246,247,237,0.06)",
+                                border: "1px solid rgba(246,247,237,0.1)",
+                                color: "rgba(246,247,237,0.5)",
+                                fontSize: "9px",
+                              }}
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </motion.div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* SECTION 2: ORGANIZATION AND LEADERSHIP EXPERIENCE */}
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <Users size={16} color={C.lime} />
+              <h2 className="uppercase" style={{ color: C.white, fontWeight: 800, fontSize: "16px", letterSpacing: "0.05em" }}>
+                ORGANIZATION AND LEADERSHIP EXPERIENCE
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {organizations.map((org, i) => (
                 <motion.div
-                  className="rounded-2xl p-5 relative overflow-hidden"
+                  key={org.organization}
+                  className="rounded-2xl p-5 flex flex-col justify-between"
                   style={{
                     backgroundColor: "rgba(246,247,237,0.04)",
-                    border: `1px solid rgba(246,247,237,0.07)`,
+                    border: "1px solid rgba(246,247,237,0.07)",
                   }}
+                  variants={itemVariants}
                   whileHover={{
                     backgroundColor: "rgba(246,247,237,0.06)",
-                    borderColor: `${exp.color}44`,
+                    borderColor: "rgba(219,230,76,0.2)",
                     y: -2,
                   }}
-                  transition={{ duration: 0.2 }}
                 >
-                  {/* Color accent bar */}
-                  <div
-                    className="absolute left-0 top-0 bottom-0 w-1 rounded-l-2xl"
-                    style={{ backgroundColor: exp.color }}
-                  />
-
-                  <div className="flex items-start justify-between mb-2">
-                    <div>
-                      <p style={{ color: exp.color, fontSize: "9px", fontWeight: 700, letterSpacing: "0.1em" }}>
-                        {exp.year}
-                      </p>
-                      <h3 className="mt-0.5" style={{ color: C.white, fontWeight: 800, fontSize: "14px" }}>
-                        {exp.role}
-                      </h3>
-                      <p style={{ color: "rgba(246,247,237,0.5)", fontSize: "11px" }}>
-                        {exp.company} · {exp.location}
-                      </p>
+                  <div>
+                    <div className="flex justify-between items-start mb-1">
+                      <span style={{ color: C.lime, fontSize: "9px", fontWeight: 700 }}>{org.year}</span>
                     </div>
-                    <span
-                      className="px-2.5 py-1 rounded-full"
-                      style={{ backgroundColor: `${exp.color}22`, color: exp.color, fontSize: "9px", fontWeight: 600 }}
-                    >
-                      {exp.type}
-                    </span>
-                  </div>
-
-                  <p className="mb-3" style={{ color: "rgba(246,247,237,0.65)", fontSize: "12px", lineHeight: 1.65 }}>
-                    {exp.desc}
-                  </p>
-
-                  <div className="flex flex-col gap-1.5 mb-3">
-                    {exp.achievements.map((a) => (
-                      <div key={a} className="flex items-center gap-2">
-                        <span style={{ color: C.lime, fontSize: "8px" }}>✦</span>
-                        <span style={{ color: "rgba(246,247,237,0.7)", fontSize: "11px" }}>{a}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="flex gap-2">
-                    {exp.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-2.5 py-1 rounded-full"
-                        style={{
-                          backgroundColor: "rgba(246,247,237,0.06)",
-                          border: "1px solid rgba(246,247,237,0.1)",
-                          color: "rgba(246,247,237,0.5)",
-                          fontSize: "9px",
-                        }}
-                      >
-                        {tag}
-                      </span>
-                    ))}
+                    <h3 style={{ color: C.white, fontWeight: 800, fontSize: "13px" }}>
+                      {org.role}
+                    </h3>
+                    <p style={{ color: "rgba(246,247,237,0.5)", fontSize: "11px", marginBottom: "12px" }}>
+                      {org.organization}
+                    </p>
+                    <div className="flex flex-col gap-1.5">
+                      {org.highlights.map((item, idx) => (
+                        <div key={idx} className="flex items-start gap-2">
+                          <CheckCircle2 size={12} color={C.lime} className="shrink-0 mt-0.5" />
+                          <span style={{ color: "rgba(246,247,237,0.75)", fontSize: "11px", lineHeight: 1.5 }}>
+                            {item}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </motion.div>
-              </motion.div>
-            ))}
+              ))}
+            </div>
+          </div>
+          {/* SECTION 3: VERIFIED ACHIEVEMENTS & CERTIFICATIONS */}
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <Award size={16} color={C.lime} />
+              <h2 className="uppercase" style={{ color: C.white, fontWeight: 800, fontSize: "16px", letterSpacing: "0.05em" }}>
+                VERIFIED ACHIEVEMENTS & INTELLECTUAL PROPERTY
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 gap-3">
+              {achievements.map((ach, i) => (
+                <motion.div
+                  key={i}
+                  className="rounded-xl p-4 flex flex-col sm:flex-row justify-between sm:items-center gap-3"
+                  style={{
+                    backgroundColor: "rgba(246,247,237,0.04)",
+                    border: "1px solid rgba(246,247,237,0.07)",
+                  }}
+                  variants={itemVariants}
+                  whileHover={{
+                    backgroundColor: "rgba(246,247,237,0.06)",
+                    borderColor: "rgba(219,230,76,0.2)",
+                  }}
+                >
+                  <div className="flex items-start gap-3">
+                    <span className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 mt-0.5" style={{ backgroundColor: "rgba(219,230,76,0.1)", color: C.lime, fontSize: "12px" }}>
+                      🏆
+                    </span>
+                    <div>
+                      <div className="flex items-center gap-2 mb-1 flex-wrap">
+                        <span style={{ color: C.lime, fontSize: "9px", fontWeight: 700 }}>{ach.year}</span>
+                        <span className="px-2 py-0.5 rounded-full" style={{ backgroundColor: "rgba(246,247,237,0.06)", color: "rgba(246,247,237,0.6)", fontSize: "8px" }}>
+                          {ach.category}
+                        </span>
+                        {ach.registrationNumber && (
+                          <span className="px-2 py-0.5 rounded-full" style={{ backgroundColor: "rgba(0,128,76,0.2)", color: C.lime, fontSize: "8px", fontWeight: 600 }}>
+                            Reg. No. {ach.registrationNumber}
+                          </span>
+                        )}
+                      </div>
+                      <h3 style={{ color: C.white, fontWeight: 700, fontSize: "12px", lineHeight: 1.5 }} className="break-words">
+                        {ach.title}
+                      </h3>
+                      <p style={{ color: "rgba(246,247,237,0.5)", fontSize: "10px", marginTop: "2px" }}>
+                        Issuer: {ach.issuer}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </motion.div>
+
 
         {/* Right sidebar */}
         <motion.div
@@ -205,46 +298,18 @@ export default function Pengalaman() {
           initial="initial"
           animate="animate"
         >
-          {/* Stats */}
-          <motion.div
-            className="rounded-2xl p-5"
-            style={{ backgroundColor: C.green, boxShadow: `0 8px 32px rgba(0,128,76,0.2)` }}
-            variants={itemVariants}
-          >
-            <p className="uppercase mb-4" style={{ color: C.lime, fontSize: "9px", fontWeight: 700, letterSpacing: "0.12em" }}>
-              ACHIEVEMENTS
-            </p>
-            <div className="grid grid-cols-2 gap-3">
-              {[
-                { num: "3+", label: "Internships" },
-                { num: "20+", label: "Completed Projects" },
-                { num: "7", label: "Awards" },
-                { num: "5+", label: "Organizations" },
-              ].map((stat, i) => (
-                <motion.div
-                  key={stat.label}
-                  className="text-center p-3 rounded-xl"
-                  style={{ backgroundColor: "rgba(0,31,63,0.2)" }}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.5 + i * 0.1 }}
-                >
-                  <p style={{ color: C.lime, fontWeight: 900, fontSize: "22px", lineHeight: 1 }}>{stat.num}</p>
-                  <p style={{ color: "rgba(246,247,237,0.6)", fontSize: "9px", marginTop: "4px" }}>{stat.label}</p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
           {/* Education */}
           <motion.div
             className="rounded-2xl p-5"
             style={{ backgroundColor: "rgba(246,247,237,0.04)", border: "1px solid rgba(246,247,237,0.07)" }}
             variants={itemVariants}
           >
-            <p className="uppercase mb-4" style={{ color: "rgba(246,247,237,0.4)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.12em" }}>
-              EDUCATION
-            </p>
+            <div className="flex items-center gap-2 mb-4">
+              <GraduationCap size={16} color={C.lime} />
+              <p className="uppercase" style={{ color: "rgba(246,247,237,0.4)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.12em" }}>
+                ACADEMIC BACKGROUND
+              </p>
+            </div>
             <div className="flex flex-col gap-3">
               {education.map((edu, i) => (
                 <motion.div
@@ -253,48 +318,53 @@ export default function Pengalaman() {
                   style={{ backgroundColor: "rgba(246,247,237,0.04)", border: "1px solid rgba(246,247,237,0.06)" }}
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.6 + i * 0.15 }}
+                  transition={{ delay: 0.4 + i * 0.15 }}
                   whileHover={{ borderColor: "rgba(219,230,76,0.2)", backgroundColor: "rgba(219,230,76,0.04)" }}
                 >
                   <p style={{ color: C.lime, fontSize: "9px", fontWeight: 700 }}>{edu.year}</p>
                   <p className="mt-1" style={{ color: C.white, fontSize: "12px", fontWeight: 700 }}>{edu.degree}</p>
                   <p style={{ color: "rgba(246,247,237,0.5)", fontSize: "10px" }}>{edu.school}</p>
-                  <div className="flex items-center gap-2 mt-2">
-                    {edu.gpa !== "—" && (
-                      <span className="px-2 py-0.5 rounded-full" style={{ backgroundColor: "rgba(0,128,76,0.2)", color: C.green, fontSize: "8px" }}>
+                  <div className="flex flex-wrap items-center gap-2 mt-2">
+                    {edu.gpa && (
+                      <span className="px-2 py-0.5 rounded-full" style={{ backgroundColor: "rgba(0,128,76,0.2)", color: C.lime, fontSize: "8px", fontWeight: 600 }}>
                         GPA {edu.gpa}
                       </span>
                     )}
-                    <span className="px-2 py-0.5 rounded-full" style={{ backgroundColor: "rgba(219,230,76,0.1)", color: C.lime, fontSize: "8px" }}>
-                      {edu.honors}
-                    </span>
+                    {edu.honors && (
+                      <span className="px-2 py-0.5 rounded-full" style={{ backgroundColor: "rgba(219,230,76,0.1)", color: C.lime, fontSize: "8px", fontWeight: 600 }}>
+                        {edu.honors}
+                      </span>
+                    )}
                   </div>
                 </motion.div>
               ))}
             </div>
           </motion.div>
 
-          {/* Certifications */}
+          {/* Certifications Sidebar */}
           <motion.div
             className="rounded-2xl p-5"
             style={{ backgroundColor: C.blue, boxShadow: `0 8px 32px rgba(30,72,143,0.2)` }}
             variants={itemVariants}
             whileHover={{ scale: 1.01 }}
           >
-            <p className="uppercase mb-3" style={{ color: "rgba(246,247,237,0.5)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.12em" }}>
-              CERTIFICATIONS
-            </p>
-            {["Skill Competency - ESDM", "BIRU x KSE Scholarship Awardee", "Intellectual Property Rights (HKI)", "Basic Mechanic Course - PT. BUMA"].map((cert, i) => (
+            <div className="flex items-center gap-2 mb-3">
+              <Award size={16} color={C.lime} />
+              <p className="uppercase" style={{ color: "rgba(246,247,237,0.7)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.12em" }}>
+                VERIFIED CERTIFICATIONS
+              </p>
+            </div>
+            {certificationsSidebar.map((cert, i) => (
               <motion.div
                 key={cert}
-                className="flex items-center gap-2.5 py-2"
-                style={{ borderBottom: i < 3 ? "1px solid rgba(246,247,237,0.06)" : "none" }}
+                className="flex items-start gap-2.5 py-2.5"
+                style={{ borderBottom: i < certificationsSidebar.length - 1 ? "1px solid rgba(246,247,237,0.08)" : "none" }}
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.7 + i * 0.08 }}
+                transition={{ delay: 0.5 + i * 0.08 }}
               >
-                <span style={{ color: C.lime, fontSize: "10px" }}>✦</span>
-                <span style={{ color: "rgba(246,247,237,0.75)", fontSize: "11px" }}>{cert}</span>
+                <span style={{ color: C.lime, fontSize: "10px", marginTop: "2px" }}>✦</span>
+                <span style={{ color: "rgba(246,247,237,0.85)", fontSize: "11px", lineHeight: 1.5 }}>{cert}</span>
               </motion.div>
             ))}
           </motion.div>
@@ -303,3 +373,4 @@ export default function Pengalaman() {
     </div>
   );
 }
+

@@ -233,10 +233,10 @@
 
 .home-hero { background: linear-gradient(145deg, rgba(8, 12, 16, 0.9), rgba(4, 8, 12, 0.9)) !important; }
 .home-profile { background: linear-gradient(145deg, rgba(12, 50, 98, 0.85), rgba(8, 32, 64, 0.9)) !important; }
-.home-skill1 { background: linear-gradient(145deg, rgba(28, 108, 84, 0.58), rgba(18, 72, 56, 0.6)) !important; }
-.home-skill2 { background: linear-gradient(145deg, rgba(24, 92, 74, 0.58), rgba(14, 58, 46, 0.6)) !important; }
-.home-cta { background: linear-gradient(145deg, rgba(196, 210, 70, 0.58), rgba(132, 150, 40, 0.6)) !important; }
-.home-footer { background: linear-gradient(145deg, rgba(24, 98, 72, 0.58), rgba(14, 64, 48, 0.6)) !important; }
+.home-skill1, .home-focus { background: linear-gradient(145deg, rgba(16, 32, 48, 0.85), rgba(8, 20, 32, 0.9)) !important; }
+.home-skill2, .home-ebro { background: linear-gradient(145deg, rgba(0, 48, 36, 0.75), rgba(0, 24, 18, 0.85)) !important; }
+.home-cta, .home-snapshot { background: linear-gradient(145deg, rgba(18, 38, 64, 0.85), rgba(10, 24, 44, 0.9)) !important; }
+.home-footer { background: linear-gradient(145deg, rgba(14, 28, 42, 0.85), rgba(8, 18, 28, 0.9)) !important; }
 
 .social-bar { position: relative; overflow: visible; }
 
@@ -377,16 +377,17 @@
   .home-grid {
     width: 100%;
     overflow-x: hidden;
-    overflow-y: visible !important;
+    overflow-y: auto !important;
     height: auto !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-template-columns: 1fr !important;
     grid-template-rows: auto !important;
     grid-template-areas: 
-      "hero hero"
-      "profile skill1"
-      "skill2 cta"
-      "footer footer" !important;
-    gap: 6px !important;
+      "hero"
+      "ebro"
+      "focus"
+      "snapshot"
+      "footer" !important;
+    gap: 8px !important;
   }
   .home-grid > * { min-width: 0; }
 

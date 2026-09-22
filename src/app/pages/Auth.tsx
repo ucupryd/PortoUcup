@@ -24,7 +24,7 @@ export default function Auth() {
           password,
         });
         if (error) throw error;
-        navigate('/dashboard'); // Navigate to protected route or home
+        navigate('/monitoring'); // Navigate to protected monitoring dashboard
       } else {
         const { error } = await supabase.auth.signUp({
           email,

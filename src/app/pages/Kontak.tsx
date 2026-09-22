@@ -2,16 +2,11 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { C, containerVariants, itemVariants } from "../components/constants";
 import { Instagram, Linkedin, Github, Youtube, Phone, Mail, MapPin, GraduationCap } from "lucide-react";
-
-const availability = [
-  { day: "Mon – Fri", time: "08:00 – 17:00", available: true },
-  { day: "Saturday", time: "09:00 – 13:00", available: true },
-  { day: "Sunday", time: "Not available", available: false },
-];
+import { portfolioData } from "../data/portfolioData";
 
 type FormStatus = "idle" | "sending" | "success" | "error";
 
-// ── LinksCard component (referensi UI card dengan efek hover fan) ──
+// ── LinksCard component (UI card with fan hover effect) ──
 const LinksCard = ({ id, title, bgGradient, items }: {
   id: string;
   title: string;
@@ -100,19 +95,26 @@ const LinksCard = ({ id, title, bgGradient, items }: {
 );
 
 export default function Kontak() {
-  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "", budget: "" });
+  const { profile } = portfolioData;
+  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [status, setStatus] = useState<FormStatus>("idle");
   const [focused, setFocused] = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("sending");
-    await new Promise((r) => setTimeout(r, 1800));
-    setStatus("success");
+
+    // Form submission opens user's mail client or WhatsApp with formatted message
+    const mailtoUrl = `mailto:${profile.email}?subject=${encodeURIComponent(form.subject || "Engineering Inquiry")}&body=${encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\nMessage:\n${form.message}`)}`;
+    
     setTimeout(() => {
-      setStatus("idle");
-      setForm({ name: "", email: "", subject: "", message: "", budget: "" });
-    }, 3500);
+      window.location.href = mailtoUrl;
+      setStatus("success");
+      setTimeout(() => {
+        setStatus("idle");
+        setForm({ name: "", email: "", subject: "", message: "" });
+      }, 4000);
+    }, 800);
   };
 
   const fieldStyle = (name: string) => ({
@@ -138,9 +140,9 @@ export default function Kontak() {
           <div className="flex-1 h-px" style={{ backgroundColor: "rgba(219,230,76,0.2)" }} />
         </div>
         <h1 className="uppercase" style={{ color: C.white, fontWeight: 900, fontSize: "clamp(22px, 3vw, 38px)", letterSpacing: "-0.02em" }}>
-          LET'S{" "}
+          LET'S BUILD{" "}
           <span style={{ color: C.lime }}>
-            COLLABORATE
+            INTELLIGENT AUTOMATION TOGETHER
           </span>
         </h1>
       </motion.div>
@@ -170,76 +172,92 @@ export default function Kontak() {
                 style={{ backgroundColor: C.lime }}
               />
               <span style={{ color: C.lime, fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em" }}>
-                AVAILABLE FOR WORK
+                OPEN TO COLLABORATIONS
               </span>
             </div>
-            <p style={{ color: C.white, fontWeight: 900, fontSize: "17px", lineHeight: 1.3 }}>
-              Have an IoT or automation project?
-              <br />
-              <span style={{ opacity: 0.7 }}>Let's collaborate! 🚀</span>
+            <p style={{ color: C.white, fontWeight: 900, fontSize: "16px", lineHeight: 1.35 }}>
+              Open to engineering opportunities, IoT collaborations, automation projects, and technology-driven initiatives.
             </p>
-            <p className="mt-3" style={{ color: "rgba(246,247,237,0.6)", fontSize: "11px", lineHeight: 1.6 }}>
-              Open for IoT projects, control systems, HMI, web development, freelance, or technical discussions.
+            <p className="mt-3" style={{ color: "rgba(246,247,237,0.75)", fontSize: "11px", lineHeight: 1.6 }}>
+              Whether you are looking for an IoT engineer, embedded systems developer, HMI developer, or full-stack monitoring system collaborator, I am open to relevant technical opportunities and project collaborations.
             </p>
           </motion.div>
 
-          {/* Social & Contact Cards */}
+          {/* Direct Public Contact Info */}
+          <motion.div
+            className="rounded-2xl p-4 flex flex-col gap-2.5"
+            style={{ backgroundColor: "rgba(246,247,237,0.04)", border: "1px solid rgba(246,247,237,0.07)" }}
+            variants={itemVariants}
+          >
+            <div className="flex items-center gap-3">
+              <Mail size={16} color={C.lime} />
+              <div>
+                <p style={{ color: "rgba(246,247,237,0.4)", fontSize: "9px", fontWeight: 700 }}>PROFESSIONAL EMAIL</p>
+                <a href={`mailto:${profile.email}`} className="hover:underline" style={{ color: C.white, fontSize: "11px", fontWeight: 600 }}>
+                  {profile.email}
+                </a>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <GraduationCap size={16} color={C.lime} />
+              <div>
+                <p style={{ color: "rgba(246,247,237,0.4)", fontSize: "9px", fontWeight: 700 }}>UNIVERSITY EMAIL</p>
+                <a href={`mailto:${profile.academicEmail}`} className="hover:underline" style={{ color: C.white, fontSize: "11px", fontWeight: 600 }}>
+                  {profile.academicEmail}
+                </a>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <Phone size={16} color={C.lime} />
+              <div>
+                <p style={{ color: "rgba(246,247,237,0.4)", fontSize: "9px", fontWeight: 700 }}>BUSINESS WHATSAPP</p>
+                <a href={profile.whatsappUrl} target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: C.lime, fontSize: "11px", fontWeight: 700 }}>
+                  {profile.phone} (Official Business Line)
+                </a>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <MapPin size={16} color={C.lime} />
+              <div>
+                <p style={{ color: "rgba(246,247,237,0.4)", fontSize: "9px", fontWeight: 700 }}>LOCATION</p>
+                <p style={{ color: C.white, fontSize: "11px", fontWeight: 600 }}>
+                  Semarang, Central Java, Indonesia
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Social & Interactive Contact Cards */}
           <motion.div className="grid grid-cols-2 gap-3" variants={itemVariants}>
             <LinksCard
               id="socials"
               title="Socials"
               bgGradient={`linear-gradient(135deg, ${C.blue} 0%, ${C.midnight} 100%)`}
               items={[
-                { link: "https://www.youtube.com/@MECHUP14", icon: <Youtube />, hoverBg: "radial-gradient(circle at 30% 107%, #ff0000 0%, #cc0000 90%)" },
-                { link: "https://www.linkedin.com/in/m-yusuf-riyadi-661535386", icon: <Linkedin />, hoverBg: "radial-gradient(circle at 30% 107%, #0077b5 0%, #005582 90%)" },
-                { link: "https://github.com/ucupryd", icon: <Github />, hoverBg: "radial-gradient(circle at 30% 107%, #333 0%, #111 90%)" },
-                { link: "https://www.instagram.com/ucup_ryd/", icon: <Instagram />, hoverBg: "radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #ff53d4 60%, #62c2fe 90%)" },
+                { link: profile.socials.youtube, icon: <Youtube />, hoverBg: "radial-gradient(circle at 30% 107%, #ff0000 0%, #cc0000 90%)" },
+                { link: profile.socials.linkedin, icon: <Linkedin />, hoverBg: "radial-gradient(circle at 30% 107%, #0077b5 0%, #005582 90%)" },
+                { link: profile.socials.github, icon: <Github />, hoverBg: "radial-gradient(circle at 30% 107%, #333 0%, #111 90%)" },
+                { link: profile.socials.instagram, icon: <Instagram />, hoverBg: "radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #ff53d4 60%, #62c2fe 90%)" },
               ]}
             />
             <LinksCard
               id="contacts"
-              title="Contact"
+              title="Direct"
               bgGradient={`linear-gradient(135deg, ${C.green} 0%, ${C.mantisLight} 100%)`}
               items={[
-                { link: "mailto:myusufriyadi@students.undip.ac.id", icon: <GraduationCap />, hoverBg: "radial-gradient(circle at 30% 107%, #4CAF50 0%, #2E7D32 90%)" },
-                { link: "mailto:yusufriyadi141004@gmail.com", icon: <Mail />, hoverBg: "radial-gradient(circle at 30% 107%, #ea4335 0%, #c5221f 90%)" },
-                { link: "https://wa.me/62895422885344", icon: <Phone />, hoverBg: "radial-gradient(circle at 30% 107%, #25D366 0%, #128C7E 90%)" },
-                { link: "#", icon: <MapPin />, hoverBg: "radial-gradient(circle at 30% 107%, #FF9800 0%, #E65100 90%)" },
+                { link: `mailto:${profile.academicEmail}`, icon: <GraduationCap />, hoverBg: "radial-gradient(circle at 30% 107%, #4CAF50 0%, #2E7D32 90%)" },
+                { link: `mailto:${profile.email}`, icon: <Mail />, hoverBg: "radial-gradient(circle at 30% 107%, #ea4335 0%, #c5221f 90%)" },
+                { link: profile.whatsappUrl, icon: <Phone />, hoverBg: "radial-gradient(circle at 30% 107%, #25D366 0%, #128C7E 90%)" },
+                { link: profile.whatsappUrl, icon: <MapPin />, hoverBg: "radial-gradient(circle at 30% 107%, #FF9800 0%, #E65100 90%)" },
               ]}
             />
           </motion.div>
-
-          {/* Availability */}
-          <motion.div
-            className="rounded-2xl p-4"
-            style={{ backgroundColor: C.blue, boxShadow: `0 8px 24px rgba(30,72,143,0.2)` }}
-            variants={itemVariants}
-          >
-            <p className="uppercase mb-3" style={{ color: "rgba(246,247,237,0.5)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.12em" }}>
-              WORKING HOURS
-            </p>
-            {availability.map((slot, i) => (
-              <div
-                key={slot.day}
-                className="flex items-center justify-between py-2"
-                style={{ borderBottom: i < 2 ? "1px solid rgba(246,247,237,0.06)" : "none" }}
-              >
-                <span style={{ color: "rgba(246,247,237,0.7)", fontSize: "11px" }}>{slot.day}</span>
-                <div className="flex items-center gap-2">
-                  <span style={{ color: slot.available ? C.lime : "rgba(246,247,237,0.3)", fontSize: "10px" }}>
-                    {slot.time}
-                  </span>
-                  <div
-                    className="w-1.5 h-1.5 rounded-full"
-                    style={{ backgroundColor: slot.available ? C.lime : "rgba(246,247,237,0.2)" }}
-                  />
-                </div>
-              </div>
-            ))}
-          </motion.div>
         </motion.div>
 
-        {/* Right: Form */}
+        {/* Right: Message Form */}
         <motion.div
           className="rounded-2xl p-7 relative overflow-hidden"
           style={{ backgroundColor: "rgba(246,247,237,0.04)", border: "1px solid rgba(246,247,237,0.08)" }}
@@ -269,12 +287,12 @@ export default function Kontak() {
                   <span style={{ fontSize: "28px" }}>✓</span>
                 </div>
                 <h3 style={{ color: C.white, fontWeight: 900, fontSize: "20px", textAlign: "center" }}>
-                  Message Sent!
+                  Opening Mail Application...
                 </h3>
                 <p style={{ color: "rgba(246,247,237,0.6)", fontSize: "12px", textAlign: "center", marginTop: "8px", lineHeight: 1.6 }}>
-                  Thank you for reaching out.
+                  Your message draft has been generated for direct email submission.
                   <br />
-                  I will reply within 24 hours.
+                  You can also contact directly via official WhatsApp.
                 </p>
               </motion.div>
             ) : (
@@ -286,8 +304,11 @@ export default function Kontak() {
                 exit={{ opacity: 0 }}
               >
                 <div>
-                  <p className="uppercase mb-4" style={{ color: "rgba(246,247,237,0.4)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.12em" }}>
-                    SEND MESSAGE
+                  <p className="uppercase mb-1" style={{ color: "rgba(246,247,237,0.4)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.12em" }}>
+                    DIRECT INQUIRY FORM
+                  </p>
+                  <p style={{ color: "rgba(246,247,237,0.5)", fontSize: "11px" }}>
+                    Send a message directly to email or official WhatsApp.
                   </p>
                 </div>
 
@@ -342,7 +363,7 @@ export default function Kontak() {
                   </label>
                   <input
                     type="text"
-                    placeholder="What do you want to discuss?"
+                    placeholder="Project subject or collaboration topic..."
                     value={form.subject}
                     onChange={(e) => setForm({ ...form, subject: e.target.value })}
                     onFocus={() => setFocused("subject")}
@@ -352,34 +373,13 @@ export default function Kontak() {
                   />
                 </motion.div>
 
-                {/* Budget */}
-                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
-                  <label style={{ color: "rgba(246,247,237,0.5)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.08em", display: "block", marginBottom: "6px" }}>
-                    BUDGET ESTIMATE
-                  </label>
-                  <select
-                    value={form.budget}
-                    onChange={(e) => setForm({ ...form, budget: e.target.value })}
-                    onFocus={() => setFocused("budget")}
-                    onBlur={() => setFocused(null)}
-                    style={{ ...fieldStyle("budget"), cursor: "pointer" }}
-                  >
-                    <option value="" style={{ backgroundColor: C.midnight }}>Select budget range...</option>
-                    <option value="<5jt" style={{ backgroundColor: C.midnight }}>Under Rp 5 million</option>
-                    <option value="5-15jt" style={{ backgroundColor: C.midnight }}>Rp 5 – 15 million</option>
-                    <option value="15-50jt" style={{ backgroundColor: C.midnight }}>Rp 15 – 50 million</option>
-                    <option value=">50jt" style={{ backgroundColor: C.midnight }}>Over Rp 50 million</option>
-                    <option value="diskusi" style={{ backgroundColor: C.midnight }}>To be discussed</option>
-                  </select>
-                </motion.div>
-
                 {/* Message */}
                 <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55 }}>
                   <label style={{ color: "rgba(246,247,237,0.5)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.08em", display: "block", marginBottom: "6px" }}>
                     MESSAGE *
                   </label>
                   <textarea
-                    placeholder="Tell me about your project, goals, timeline, and other details..."
+                    placeholder="Describe your engineering project, collaboration ideas, or technical questions..."
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
                     onFocus={() => setFocused("message")}
@@ -422,7 +422,7 @@ export default function Kontak() {
                           animate={{ rotate: 360 }}
                           transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
                         />
-                        <span style={{ color: C.midnight, fontWeight: 800, fontSize: "11px" }}>Sending...</span>
+                        <span style={{ color: C.midnight, fontWeight: 800, fontSize: "11px" }}>Preparing Email Draft...</span>
                       </motion.div>
                     ) : (
                       <motion.div
@@ -433,7 +433,7 @@ export default function Kontak() {
                         exit={{ opacity: 0 }}
                       >
                         <span style={{ color: C.midnight, fontWeight: 900, fontSize: "11px", letterSpacing: "0.08em" }}>
-                          SEND MESSAGE
+                          SEND EMAIL INQUIRY
                         </span>
                         <motion.span
                           style={{ color: C.midnight, fontSize: "14px" }}
@@ -447,9 +447,12 @@ export default function Kontak() {
                   </AnimatePresence>
                 </motion.button>
 
-                <p style={{ color: "rgba(246,247,237,0.3)", fontSize: "9px", textAlign: "center" }}>
-                  🔒 Your data is secure and will not be shared with third parties
-                </p>
+                <div className="flex justify-between items-center text-[10px] text-gray-400 mt-1">
+                  <span>Direct submission via email client</span>
+                  <a href={profile.whatsappUrl} target="_blank" rel="noopener noreferrer" className="text-[#DBE64C] font-semibold hover:underline">
+                    Or Contact via WhatsApp →
+                  </a>
+                </div>
               </motion.form>
             )}
           </AnimatePresence>
@@ -458,3 +461,4 @@ export default function Kontak() {
     </div>
   );
 }
+

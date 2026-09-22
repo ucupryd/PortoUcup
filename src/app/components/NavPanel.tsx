@@ -15,7 +15,8 @@ import {
   Activity,
   Camera,
   LogOut,
-  LogIn
+  LogIn,
+  ShieldCheck
 } from "lucide-react";
 import LOGO from "../assets/logo.png";
 
@@ -35,12 +36,40 @@ interface NavPanelProps {
 export function NavPanel({ open = true, onToggle }: NavPanelProps) {
   const navigate = useNavigate();
   const [session, setSession] = useState<Session | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => setSession(session));
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => setSession(session));
-    return () => subscription.unsubscribe();
+    let isMounted = true;
+
+    async function checkAuth(currentSession: Session | null) {
+      if (!currentSession) {
+        if (isMounted) {
+          setSession(null);
+          setIsAdmin(false);
+        }
+        return;
+      }
+
+      if (isMounted) setSession(currentSession);
+
+      try {
+        const { data } = await supabase.rpc("is_admin");
+        if (isMounted) {
+          setIsAdmin(Boolean(data));
+        }
+      } catch {
+        if (isMounted) setIsAdmin(false);
+      }
+    }
+
+    supabase.auth.getSession().then(({ data: { session } }) => checkAuth(session));
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => checkAuth(session));
+
+    return () => {
+      isMounted = false;
+      subscription.unsubscribe();
+    };
   }, []);
 
   const handleLogout = async () => {
@@ -54,6 +83,9 @@ export function NavPanel({ open = true, onToggle }: NavPanelProps) {
       { label: "MONITORING", sub: "Dashboard", Icon: Activity, path: "/monitoring" },
       { label: "CCTV", sub: "Monitoring", Icon: Camera, path: "/cctv-monitoring" }
     );
+  }
+  if (isAdmin) {
+    dynamicNavItems.push({ label: "ADMIN", sub: "Control", Icon: ShieldCheck, path: "/admin" });
   }
 
   return (

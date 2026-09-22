@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { useNavigate } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
 import { supabase } from '../../lib/supabase';
 import { C } from './constants';
@@ -17,6 +18,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,6 +34,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
         });
         if (error) throw error;
         onClose(); // Close modal on success
+        navigate('/monitoring'); // Redirect to protected monitoring dashboard
       } else {
         const { error } = await supabase.auth.signUp({
           email,

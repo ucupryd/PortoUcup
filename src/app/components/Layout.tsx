@@ -1,9 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { Outlet, useLocation } from "react-router";
 import { AnimatePresence, motion } from "motion/react";
 import { NavPanel } from "./NavPanel";
 import { ParticleField } from "./ParticleField";
 import { C, pageVariants } from "./constants";
+
+function PageFallback() {
+  return (
+    <div className="w-full h-full flex items-center justify-center p-8">
+      <div className="flex flex-col items-center gap-3">
+        <div className="w-8 h-8 border-2 rounded-full animate-spin" style={{ borderColor: `${C.lime} transparent ${C.lime} ${C.lime}` }} />
+        <span className="text-xs tracking-widest uppercase text-white/50 font-mono">Memuat...</span>
+      </div>
+    </div>
+  );
+}
 
 export function Layout() {
   const location = useLocation();
@@ -79,7 +90,9 @@ export function Layout() {
               scrollbarColor: `rgba(219,230,76,0.3) transparent`,
             }}
           >
-            <Outlet />
+            <Suspense fallback={<PageFallback />}>
+              <Outlet />
+            </Suspense>
           </motion.div>
         </AnimatePresence>
       </div>
